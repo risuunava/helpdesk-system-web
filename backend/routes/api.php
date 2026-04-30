@@ -1,0 +1,38 @@
+<?php
+
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\TicketController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+
+// Public auth routes (no token required)
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login',    [AuthController::class, 'login'])->name('login');
+
+// Protected routes (require Sanctum token)
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    // Auth
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    // User info
+    Route::get('/user', function (Request $request) {
+        return $request->user()->load('roles');
+    });
+
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    // Tickets CRUD
+    Route::apiResource('tickets', TicketController::class);
+
+    // Additional ticket routes
+    Route::patch('/tickets/{ticket}/assign', [TicketController::class, 'assign']);
+});
