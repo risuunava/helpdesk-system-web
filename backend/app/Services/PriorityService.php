@@ -10,6 +10,7 @@ class PriorityService
         'production down',
         'critical',
         'urgent',
+        'bos marah',
         'emergency',
         'outage',
         'down',

@@ -8,7 +8,7 @@ interface User {
   id: number;
   name: string;
   email: string;
-  roles?: { id: number; name: string }[] | string[];
+  roles: string[];
 }
 
 interface LoginCredentials {
@@ -113,8 +113,8 @@ export function useAuth() {
   };
 
   const isAuthenticated = !isLoading && !!user;
-  const isAdmin = (user?.roles as string[])?.includes('admin') ?? false;
-  const isAgent = (user?.roles as string[])?.includes('agent') ?? false;
+  const isAdmin = user?.roles?.includes('admin') ?? false;
+  const isAgent = user?.roles?.includes('agent') ?? false;
 
   return {
     user,

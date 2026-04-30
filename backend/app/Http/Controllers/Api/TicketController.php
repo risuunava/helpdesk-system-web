@@ -27,24 +27,42 @@ class TicketController extends Controller
     }
 
     /**
-     * Get all tickets with filters
+     * Get all tickets with filters — role-based scoping
+     *
+     * User  → hanya tiket milik sendiri
+     * Agent → tiket assigned ke dia + open/unassigned + milik sendiri
+     * Admin → semua tiket
      */
     public function index(Request $request)
     {
+        $user  = Auth::user();
         $query = Ticket::with(['user:id,name,email', 'assignedTo:id,name,email']);
 
+        // ── Role-based scoping ──
+        if ($user->hasRole('user')) {
+            $query->where('user_id', $user->id);
+        } elseif ($user->hasRole('agent')) {
+            $query->where(function ($q) use ($user) {
+                $q->where('assigned_to', $user->id)
+                  ->orWhere('user_id', $user->id)
+                  ->orWhere(function ($q2) {
+                      $q2->where('status', 'open')
+                         ->whereNull('assigned_to');
+                  });
+            });
+        }
+        // admin → no filter
+
+        // ── User filters ──
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
-
         if ($request->filled('priority')) {
             $query->where('priority', $request->priority);
         }
-
         if ($request->filled('category')) {
             $query->where('category', $request->category);
         }
-
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -54,15 +72,10 @@ class TicketController extends Controller
             });
         }
 
-        // User hanya bisa lihat tiket sendiri
-        if (Auth::user()->hasRole('user')) {
-            $query->where('user_id', Auth::id());
-        }
-
         $tickets = $query->orderBy('created_at', 'desc')->paginate($request->per_page ?? 10);
 
         $tickets->getCollection()->transform(function ($ticket) {
-            $ticket->sla_status = $this->slaService->getRemainingTime($ticket);
+            $ticket->sla_status     = $this->slaService->getRemainingTime($ticket);
             $ticket->sla_is_breached = $this->slaService->isBreached($ticket);
             return $ticket;
         });
@@ -71,7 +84,7 @@ class TicketController extends Controller
     }
 
     /**
-     * Create new ticket
+     * Create new ticket — semua role bisa buat
      */
     public function store(Request $request)
     {
@@ -123,7 +136,11 @@ class TicketController extends Controller
     }
 
     /**
-     * Get ticket detail
+     * Get ticket detail — role-based access
+     *
+     * User  → hanya tiket milik sendiri
+     * Agent → boleh lihat semua
+     * Admin → boleh lihat semua
      */
     public function show(string $id)
     {
@@ -137,8 +154,10 @@ class TicketController extends Controller
             return $this->errorResponse('Ticket not found', 404);
         }
 
-        if (Auth::user()->hasRole('user') && $ticket->user_id !== Auth::id()) {
-            return $this->errorResponse('Unauthorized', 403);
+        $user = Auth::user();
+
+        if ($user->hasRole('user') && $ticket->user_id !== $user->id) {
+            return $this->errorResponse('Anda hanya bisa melihat tiket milik sendiri', 403);
         }
 
         $ticket->sla_status     = $this->slaService->getRemainingTime($ticket);
@@ -148,7 +167,11 @@ class TicketController extends Controller
     }
 
     /**
-     * Update ticket
+     * Update ticket — role-based restrictions
+     *
+     * User  → TIDAK bisa update
+     * Agent → hanya tiket yang di-assign ke dia
+     * Admin → bisa update semua
      */
     public function update(Request $request, string $id)
     {
@@ -156,6 +179,17 @@ class TicketController extends Controller
 
         if (!$ticket) {
             return $this->errorResponse('Ticket not found', 404);
+        }
+
+        $user = Auth::user();
+
+        // ── Role check ──
+        if ($user->hasRole('user')) {
+            return $this->errorResponse('User tidak bisa mengupdate tiket', 403);
+        }
+
+        if ($user->hasRole('agent') && $ticket->assigned_to !== $user->id) {
+            return $this->errorResponse('Anda hanya bisa mengupdate tiket yang di-assign ke Anda', 403);
         }
 
         $validated = $request->validate([
@@ -179,7 +213,7 @@ class TicketController extends Controller
             }
 
             if (isset($validated['priority']) && $validated['priority'] !== $ticket->priority) {
-                $validated['sla_due_at']  = $this->slaService->calculateDeadline($validated['priority']);
+                $validated['sla_due_at']   = $this->slaService->calculateDeadline($validated['priority']);
                 $validated['sla_breached'] = false;
                 $changes['priority'] = ['old' => $ticket->priority, 'new' => $validated['priority']];
             }
@@ -209,10 +243,54 @@ class TicketController extends Controller
     }
 
     /**
-     * Assign ticket to agent
+     * Delete ticket — ADMIN ONLY
+     */
+    public function destroy(string $id)
+    {
+        $user = Auth::user();
+
+        if (!$user->hasRole('admin')) {
+            return $this->errorResponse('Hanya admin yang bisa menghapus tiket', 403);
+        }
+
+        $ticket = Ticket::find($id);
+
+        if (!$ticket) {
+            return $this->errorResponse('Ticket not found', 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            TicketLog::create([
+                'ticket_id'   => $ticket->id,
+                'user_id'     => Auth::id(),
+                'action'      => 'deleted',
+                'description' => "Ticket #{$ticket->ticket_number} deleted by admin",
+                'changes'     => $ticket->toArray(),
+            ]);
+
+            $ticket->delete();
+
+            DB::commit();
+
+            return $this->successResponse(null, 'Ticket deleted successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse('Failed to delete ticket: ' . $e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Assign ticket to agent — ADMIN ONLY
      */
     public function assign(Request $request, Ticket $ticket)
     {
+        $user = Auth::user();
+
+        if (!$user->hasRole('admin')) {
+            return $this->errorResponse('Hanya admin yang bisa assign tiket', 403);
+        }
+
         $validated = $request->validate([
             'assigned_to' => 'required|exists:users,id',
         ]);

@@ -6,7 +6,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  roles?: string[];
+  roles: string[];
 }
 
 export interface TicketLog {
@@ -82,4 +82,5 @@ export interface DashboardData {
   tickets_by_priority: Record<string, number>;
   recent_tickets: Ticket[];
   weekly_trends: Record<string, number>;
+  user_role?: string;
 }

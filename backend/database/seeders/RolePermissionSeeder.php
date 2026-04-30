@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
@@ -16,16 +17,16 @@ class RolePermissionSeeder extends Seeder
         // Reset cache
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Truncate permission tables (order matters untuk foreign keys)
-        DB::statement('SET session_replication_role = replica;'); // Disable FK checks (PostgreSQL)
+        // Truncate permission tables (order matters for foreign keys)
+        DB::statement('SET session_replication_role = replica;');
         DB::table('model_has_permissions')->truncate();
         DB::table('model_has_roles')->truncate();
         DB::table('role_has_permissions')->truncate();
         DB::table('roles')->truncate();
         DB::table('permissions')->truncate();
-        DB::statement('SET session_replication_role = DEFAULT;'); // Re-enable FK checks
+        DB::statement('SET session_replication_role = DEFAULT;');
 
-        // Create permissions with web guard (default)
+        // Create permissions
         $permissions = [
             'view tickets',
             'create tickets',
@@ -49,8 +50,8 @@ class RolePermissionSeeder extends Seeder
         $agentRole->givePermissionTo([
             'view tickets',
             'view all tickets',
+            'create tickets',
             'edit tickets',
-            'assign tickets',
             'view dashboard',
         ]);
 
@@ -61,24 +62,35 @@ class RolePermissionSeeder extends Seeder
             'view dashboard',
         ]);
 
-        // Create default users
-        $admin = User::firstOrCreate(
-            ['email' => 'admin@helpdesk.com'],
-            ['name' => 'Administrator', 'password' => bcrypt('password123')]
-        );
-        $admin->syncRoles(['admin']);
+        // Create default users — use DB::table to avoid double-hash from Eloquent 'hashed' cast
+        $password = Hash::make('password123');
 
-        $agent = User::firstOrCreate(
-            ['email' => 'agent@helpdesk.com'],
-            ['name' => 'Support Agent', 'password' => bcrypt('password123')]
-        );
-        $agent->syncRoles(['agent']);
+        $adminId = DB::table('users')->insertGetId([
+            'name'       => 'Administrator',
+            'email'      => 'admin@helpdesk.com',
+            'password'   => $password,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        User::find($adminId)->syncRoles(['admin']);
 
-        $user = User::firstOrCreate(
-            ['email' => 'user@helpdesk.com'],
-            ['name' => 'Regular User', 'password' => bcrypt('password123')]
-        );
-        $user->syncRoles(['user']);
+        $agentId = DB::table('users')->insertGetId([
+            'name'       => 'Support Agent',
+            'email'      => 'agent@helpdesk.com',
+            'password'   => $password,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        User::find($agentId)->syncRoles(['agent']);
+
+        $userId = DB::table('users')->insertGetId([
+            'name'       => 'Regular User',
+            'email'      => 'user@helpdesk.com',
+            'password'   => $password,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        User::find($userId)->syncRoles(['user']);
 
         $this->command->info('✅ Roles & permissions selesai!');
         $this->command->table(

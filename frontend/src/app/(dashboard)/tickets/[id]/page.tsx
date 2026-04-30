@@ -1,46 +1,81 @@
 'use client';
 
-import { useTicket, useUpdateTicket } from '../../../../hooks/use-tickets';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../components/ui/card';
-import { Badge } from '../../../../components/ui/badge';
-import { Button } from '../../../../components/ui/button';
-import { Skeleton } from '../../../../components/ui/skeleton';
-import { Separator } from '../../../../components/ui/separator';
-import { useToast } from '../../../../hooks/use-toast';
+import { useTicket, useUpdateTicket } from '@/hooks/use-tickets';
+import { useAuth } from '@/hooks/use-auth';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/hooks/use-toast';
+import { useQuery } from '@tanstack/react-query';
 import type { Status } from '@/types/ticket';
 import {
-  ArrowLeft,
-  AlertTriangle,
-  Clock,
-  CheckCircle2,
-  User2,
-  Calendar,
+  ArrowLeft, AlertTriangle, Clock, CheckCircle2,
+  User2, Calendar, Trash2, UserPlus,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import api from '@/lib/api';
+
+interface Agent { id: number; name: string; email: string; }
 
 export default function TicketDetailPage() {
   const params = useParams();
   const id = params.id as string;
+  const router = useRouter();
   const { data, isLoading, error } = useTicket(id);
   const updateTicket = useUpdateTicket();
   const { toast } = useToast();
+  const { user, isAdmin, isAgent } = useAuth();
+  const [assignTo, setAssignTo] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Fetch agents list for assign dropdown (admin only)
+  const { data: agentsData } = useQuery({
+    queryKey: ['agents'],
+    queryFn: async () => { const { data } = await api.get<{ data: Agent[] }>('/agents'); return data.data; },
+    enabled: isAdmin,
+  });
 
   const ticket = data?.data;
+
+  // Permission checks
+  const canUpdateStatus = isAdmin || (isAgent && ticket?.assigned_to === user?.id);
+  const canAssign = isAdmin;
+  const canDelete = isAdmin;
 
   const handleStatusUpdate = async (newStatus: Status) => {
     try {
       await updateTicket.mutateAsync({ id: ticket!.id, status: newStatus });
-      toast({
-        title: 'Success',
-        description: 'Ticket status updated',
-      });
+      toast({ title: 'Berhasil', description: 'Status tiket diperbarui' });
     } catch {
-      toast({
-        title: 'Error',
-        description: 'Failed to update ticket',
-        variant: 'destructive',
-      });
+      toast({ title: 'Gagal', description: 'Tidak bisa mengubah status tiket', variant: 'destructive' });
+    }
+  };
+
+  const handleAssign = async () => {
+    if (!assignTo) return;
+    try {
+      await api.patch(`/tickets/${ticket!.id}/assign`, { assigned_to: Number(assignTo) });
+      toast({ title: 'Berhasil', description: 'Tiket berhasil di-assign' });
+      window.location.reload();
+    } catch {
+      toast({ title: 'Gagal', description: 'Tidak bisa assign tiket', variant: 'destructive' });
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm('Yakin ingin menghapus tiket ini?')) return;
+    setIsDeleting(true);
+    try {
+      await api.delete(`/tickets/${ticket!.id}`);
+      toast({ title: 'Berhasil', description: 'Tiket dihapus' });
+      router.push('/tickets');
+    } catch {
+      toast({ title: 'Gagal', description: 'Tidak bisa menghapus tiket', variant: 'destructive' });
+      setIsDeleting(false);
     }
   };
 
@@ -58,10 +93,10 @@ export default function TicketDetailPage() {
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
           <AlertTriangle className="h-12 w-12 text-destructive mx-auto mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Error Loading Ticket</h2>
-          <p className="text-muted-foreground">Ticket not found or error occurred</p>
+          <h2 className="text-xl font-semibold mb-2">Error</h2>
+          <p className="text-muted-foreground">Tiket tidak ditemukan atau akses ditolak</p>
           <Link href="/tickets" className="mt-4 inline-block">
-            <Button variant="outline">Back to Tickets</Button>
+            <Button variant="outline">Kembali</Button>
           </Link>
         </div>
       </div>
@@ -70,46 +105,38 @@ export default function TicketDetailPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Back button & Header */}
+      {/* Header */}
       <div className="flex items-center gap-4">
         <Link href="/tickets">
-          <Button variant="ghost" size="icon">
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
+          <Button variant="ghost" size="icon"><ArrowLeft className="h-4 w-4" /></Button>
         </Link>
-        <div>
+        <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm text-muted-foreground">
-              {ticket.ticket_number}
-            </span>
+            <span className="text-sm text-muted-foreground">{ticket.ticket_number}</span>
             <StatusBadge status={ticket.status} />
             <PriorityBadge priority={ticket.priority} />
           </div>
           <h1 className="text-2xl font-bold">{ticket.title}</h1>
         </div>
+        {canDelete && (
+          <Button variant="destructive" size="sm" onClick={handleDelete} disabled={isDeleting}>
+            <Trash2 className="h-4 w-4 mr-1" /> Hapus
+          </Button>
+        )}
       </div>
 
-      {/* Ticket Info Cards */}
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Main Content */}
+        {/* Left: Content */}
         <div className="space-y-6">
-          {/* Description */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Description</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="text-lg">Deskripsi</CardTitle></CardHeader>
             <CardContent>
-              <p className="whitespace-pre-wrap text-muted-foreground">
-                {ticket.description}
-              </p>
+              <p className="whitespace-pre-wrap text-muted-foreground">{ticket.description}</p>
             </CardContent>
           </Card>
 
-          {/* Timeline / Logs */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Activity Log</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="text-lg">Log Aktivitas</CardTitle></CardHeader>
             <CardContent>
               {ticket.logs && ticket.logs.length > 0 ? (
                 <div className="space-y-4">
@@ -121,130 +148,106 @@ export default function TicketDetailPage() {
                       </div>
                       <div className="flex-1 pb-4">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-sm">
-                            {log.user?.name}
-                          </span>
-                          <Badge variant="outline" className="text-xs">
-                            {log.action}
-                          </Badge>
+                          <span className="font-medium text-sm">{log.user?.name}</span>
+                          <Badge variant="outline" className="text-xs">{log.action}</Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {log.description}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {new Date(log.created_at).toLocaleString()}
-                        </p>
+                        <p className="text-sm text-muted-foreground mt-1">{log.description}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{new Date(log.created_at).toLocaleString()}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">No activity yet</p>
+                <p className="text-sm text-muted-foreground">Belum ada aktivitas</p>
               )}
             </CardContent>
           </Card>
         </div>
 
-        {/* Sidebar Info */}
+        {/* Right: Sidebar */}
         <div className="space-y-6">
-          {/* Status Actions */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant={ticket.status === 'open' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => handleStatusUpdate('open')}
-                  disabled={updateTicket.isPending}
-                >
-                  Open
-                </Button>
-                <Button
-                  variant={ticket.status === 'in_progress' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => handleStatusUpdate('in_progress')}
-                  disabled={updateTicket.isPending}
-                >
-                  In Progress
-                </Button>
-                <Button
-                  variant={ticket.status === 'resolved' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => handleStatusUpdate('resolved')}
-                  disabled={updateTicket.isPending}
-                >
-                  Resolve
-                </Button>
-                <Button
-                  variant={ticket.status === 'closed' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => handleStatusUpdate('closed')}
-                  disabled={updateTicket.isPending}
-                >
-                  Close
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Status Actions — only for admin & assigned agent */}
+          {canUpdateStatus && (
+            <Card>
+              <CardHeader><CardTitle className="text-lg">Ubah Status</CardTitle></CardHeader>
+              <CardContent className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  {(['open', 'in_progress', 'resolved', 'closed'] as Status[]).map((s) => (
+                    <Button key={s} variant={ticket.status === s ? 'default' : 'outline'} size="sm"
+                      onClick={() => handleStatusUpdate(s)} disabled={updateTicket.isPending}>
+                      {s === 'open' ? 'Open' : s === 'in_progress' ? 'In Progress' : s === 'resolved' ? 'Resolved' : 'Closed'}
+                    </Button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Assign — admin only */}
+          {canAssign && (
+            <Card>
+              <CardHeader><CardTitle className="text-lg flex items-center gap-2">
+                <UserPlus className="h-4 w-4" /> Assign Tiket
+              </CardTitle></CardHeader>
+              <CardContent className="space-y-3">
+                {ticket.assignedTo ? (
+                  <p className="text-sm text-muted-foreground">
+                    Saat ini: <strong className="text-foreground">{ticket.assignedTo.name}</strong>
+                  </p>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Belum di-assign ke agent</p>
+                )}
+                <div className="flex gap-2">
+                  <select value={assignTo} onChange={(e) => setAssignTo(e.target.value)}
+                    className="flex-1 h-9 rounded-md border border-input bg-background px-3 text-sm">
+                    <option value="">-- Pilih Agent --</option>
+                    {(agentsData ?? []).map((agent: Agent) => (
+                      <option key={agent.id} value={agent.id}>{agent.name}</option>
+                    ))}
+                  </select>
+                  <Button size="sm" onClick={handleAssign} disabled={!assignTo}>Assign</Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Details */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Details</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="text-lg">Detail</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
                 <User2 className="h-4 w-4 text-muted-foreground" />
                 <div>
-                  <p className="text-xs text-muted-foreground">Created by</p>
+                  <p className="text-xs text-muted-foreground">Dibuat oleh</p>
                   <p className="font-medium text-sm">{ticket.user?.name}</p>
                 </div>
               </div>
-
               <Separator />
-
               <div className="flex items-center gap-3">
                 <Calendar className="h-4 w-4 text-muted-foreground" />
                 <div>
-                  <p className="text-xs text-muted-foreground">Created</p>
-                  <p className="font-medium text-sm">
-                    {new Date(ticket.created_at).toLocaleString()}
-                  </p>
+                  <p className="text-xs text-muted-foreground">Tanggal</p>
+                  <p className="font-medium text-sm">{new Date(ticket.created_at).toLocaleString()}</p>
                 </div>
               </div>
-
               <Separator />
-
               <div className="flex items-center gap-3">
                 <Clock className="h-4 w-4 text-muted-foreground" />
                 <div>
                   <p className="text-xs text-muted-foreground">SLA Deadline</p>
-                  <p className={`font-medium text-sm ${
-                    ticket.sla_breached ? 'text-red-600' : ''
-                  }`}>
-                    {ticket.sla_due_at
-                      ? new Date(ticket.sla_due_at).toLocaleString()
-                      : 'N/A'}
+                  <p className={`font-medium text-sm ${ticket.sla_breached ? 'text-red-600' : ''}`}>
+                    {ticket.sla_due_at ? new Date(ticket.sla_due_at).toLocaleString() : 'N/A'}
                   </p>
                 </div>
               </div>
-
               <Separator />
-
               <div className="flex items-center gap-3">
-                {ticket.sla_breached ? (
-                  <AlertTriangle className="h-4 w-4 text-red-600" />
-                ) : (
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                )}
+                {ticket.sla_breached
+                  ? <AlertTriangle className="h-4 w-4 text-red-600" />
+                  : <CheckCircle2 className="h-4 w-4 text-green-600" />}
                 <div>
                   <p className="text-xs text-muted-foreground">SLA Status</p>
-                  <p className={`font-medium text-sm ${
-                    ticket.sla_breached ? 'text-red-600' : 'text-green-600'
-                  }`}>
+                  <p className={`font-medium text-sm ${ticket.sla_breached ? 'text-red-600' : 'text-green-600'}`}>
                     {ticket.sla_status}
                   </p>
                 </div>
@@ -258,30 +261,15 @@ export default function TicketDetailPage() {
 }
 
 function PriorityBadge({ priority }: { priority: string }) {
-  const variants: Record<string, "default" | "destructive" | "outline" | "secondary"> = {
-    urgent: 'destructive',
-    normal: 'default',
-    low: 'secondary',
+  const v: Record<string, 'default'|'destructive'|'outline'|'secondary'> = {
+    urgent: 'destructive', normal: 'default', low: 'secondary',
   };
-
-  return (
-    <Badge variant={variants[priority] || 'secondary'} className="text-xs">
-      {priority}
-    </Badge>
-  );
+  return <Badge variant={v[priority] || 'secondary'} className="text-xs">{priority}</Badge>;
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const variants: Record<string, "default" | "destructive" | "outline" | "secondary"> = {
-    open: 'secondary',
-    in_progress: 'default',
-    resolved: 'outline',
-    closed: 'outline',
+  const v: Record<string, 'default'|'destructive'|'outline'|'secondary'> = {
+    open: 'secondary', in_progress: 'default', resolved: 'outline', closed: 'outline',
   };
-
-  return (
-    <Badge variant={variants[status] || 'secondary'} className="text-xs">
-      {status.replace('_', ' ')}
-    </Badge>
-  );
+  return <Badge variant={v[status] || 'secondary'} className="text-xs">{status.replace('_', ' ')}</Badge>;
 }

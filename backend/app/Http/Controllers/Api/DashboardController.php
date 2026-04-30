@@ -21,44 +21,63 @@ class DashboardController extends Controller
         $this->slaService = $slaService;
     }
 
+    /**
+     * Apply role-based scope to a ticket query.
+     *
+     * User  → only own tickets
+     * Agent → assigned to them + open/unassigned + own tickets
+     * Admin → no filter (all)
+     */
+    private function scopeByRole($query)
+    {
+        $user = Auth::user();
+
+        if ($user->hasRole('user')) {
+            $query->where('user_id', $user->id);
+        } elseif ($user->hasRole('agent')) {
+            $query->where(function ($q) use ($user) {
+                $q->where('assigned_to', $user->id)
+                  ->orWhere('user_id', $user->id)
+                  ->orWhere(function ($q2) {
+                      $q2->where('status', 'open')
+                         ->whereNull('assigned_to');
+                  });
+            });
+        }
+        // admin → no filter
+
+        return $query;
+    }
+
     public function index()
     {
         $user = Auth::user();
-        $isAdmin = $user->hasRole('admin') || $user->hasRole('agent');
 
-        // Total tickets
-        $totalTicketsQuery = Ticket::query();
-        if (!$isAdmin) {
-            $totalTicketsQuery->where('user_id', $user->id);
-        }
-        $totalTickets = $totalTicketsQuery->count();
+        // Total tickets (scoped)
+        $totalTickets = $this->scopeByRole(Ticket::query())->count();
 
-        // Tickets by status
-        $ticketsByStatus = Ticket::query()
-            ->when(!$isAdmin, fn($q) => $q->where('user_id', $user->id))
+        // Tickets by status (scoped)
+        $ticketsByStatus = $this->scopeByRole(Ticket::query())
             ->select('status', DB::raw('count(*) as count'))
             ->groupBy('status')
             ->pluck('count', 'status')
             ->toArray();
 
-        // Tickets by priority
-        $ticketsByPriority = Ticket::query()
-            ->when(!$isAdmin, fn($q) => $q->where('user_id', $user->id))
+        // Tickets by priority (scoped)
+        $ticketsByPriority = $this->scopeByRole(Ticket::query())
             ->select('priority', DB::raw('count(*) as count'))
             ->groupBy('priority')
             ->pluck('count', 'priority')
             ->toArray();
 
-        // SLA breached tickets
-        $breachedTickets = Ticket::query()
-            ->when(!$isAdmin, fn($q) => $q->where('user_id', $user->id))
+        // SLA breached tickets (scoped)
+        $breachedTickets = $this->scopeByRole(Ticket::query())
             ->where('sla_breached', true)
             ->whereNotIn('status', ['resolved', 'closed'])
             ->count();
 
-        // Recent tickets
-        $recentTickets = Ticket::query()
-            ->when(!$isAdmin, fn($q) => $q->where('user_id', $user->id))
+        // Recent tickets (scoped)
+        $recentTickets = $this->scopeByRole(Ticket::query())
             ->with(['user:id,name,email'])
             ->latest()
             ->take(5)
@@ -68,9 +87,8 @@ class DashboardController extends Controller
                 return $ticket;
             });
 
-        // Weekly ticket trends
-        $weeklyTrends = Ticket::query()
-            ->when(!$isAdmin, fn($q) => $q->where('user_id', $user->id))
+        // Weekly ticket trends (scoped)
+        $weeklyTrends = $this->scopeByRole(Ticket::query())
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
             ->where('created_at', '>=', now()->subDays(7))
             ->groupBy('date')
@@ -78,9 +96,8 @@ class DashboardController extends Controller
             ->pluck('count', 'date')
             ->toArray();
 
-        // Average resolution time (dalam jam)
-        $avgResolutionTime = Ticket::query()
-            ->when(!$isAdmin, fn($q) => $q->where('user_id', $user->id))
+        // Average resolution time in hours (scoped)
+        $avgResolutionTime = $this->scopeByRole(Ticket::query())
             ->whereNotNull('resolved_at')
             ->select(
                 DB::raw('AVG(EXTRACT(EPOCH FROM (resolved_at - created_at))/3600) as avg_hours')
@@ -89,17 +106,18 @@ class DashboardController extends Controller
 
         $dashboardData = [
             'summary' => [
-                'total_tickets' => $totalTickets,
-                'open_tickets' => $ticketsByStatus['open'] ?? 0,
-                'in_progress_tickets' => $ticketsByStatus['in_progress'] ?? 0,
-                'resolved_tickets' => $ticketsByStatus['resolved'] ?? 0,
-                'sla_breached' => $breachedTickets,
+                'total_tickets'        => $totalTickets,
+                'open_tickets'         => $ticketsByStatus['open'] ?? 0,
+                'in_progress_tickets'  => $ticketsByStatus['in_progress'] ?? 0,
+                'resolved_tickets'     => $ticketsByStatus['resolved'] ?? 0,
+                'sla_breached'         => $breachedTickets,
                 'avg_resolution_hours' => round($avgResolutionTime ?? 0, 1),
             ],
-            'tickets_by_status' => $ticketsByStatus,
+            'tickets_by_status'   => $ticketsByStatus,
             'tickets_by_priority' => $ticketsByPriority,
-            'recent_tickets' => $recentTickets,
-            'weekly_trends' => $weeklyTrends,
+            'recent_tickets'      => $recentTickets,
+            'weekly_trends'       => $weeklyTrends,
+            'user_role'           => $user->getRoleNames()->first() ?? 'user',
         ];
 
         return $this->successResponse($dashboardData, 'Dashboard data retrieved');
