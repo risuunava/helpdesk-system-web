@@ -1,5 +1,15 @@
 {
+  "name": "helpdesk-system",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n FRONTEND,BACKEND -c blue,green \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "cd backend && php artisan serve --host=127.0.0.1 --port=8000"
+  },
   "dependencies": {
     "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
