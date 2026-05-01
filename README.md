@@ -5,17 +5,38 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat&logo=typescript)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat&logo=tailwind-css)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-336791?style=flat&logo=postgresql)
+![Python](https://img.shields.io/badge/Python-ML-3776AB?style=flat&logo=python)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=flat&logo=scikit-learn)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat)
 
-Sistem tiket helpdesk IT fullstack dengan **auto-priority detection**, **SLA tracking**, **role-based access control**, dan **real-time dashboard analytics**.
+> Sistem tiket helpdesk IT cerdas dengan **Machine Learning** untuk deteksi prioritas otomatis. Cukup tulis judul dan deskripsi masalah, sistem akan memprediksi prioritas tiket secara otomatis!
+
+---
+
+## 🧠 Fitur Machine Learning
+
+Sistem ini dilengkapi **Python ML Service** yang memprediksi prioritas tiket secara otomatis:
+
+| Input User | Prediksi ML | Confidence | SLA |
+|------------|-------------|------------|-----|
+| "Server mati total" | 🔴 **Urgent** | 99.6% | 2 jam |
+| "Bos marah minta segera" | 🔴 **Urgent** | 95%+ | 2 jam |
+| "Tidak bisa login" | 🟡 **Normal** | 95.0% | 6 jam |
+| "Aplikasi error terus" | 🟡 **Normal** | 93.1% | 6 jam |
+| "Minta mouse baru" | 🟢 **Low** | 91.5% | 24 jam |
+
+**📊 Akurasi Model: 86.89%** (Cross-Validation Score)
+
+> Jika ML Service tidak tersedia, sistem otomatis **fallback ke rule-based** detection.
 
 ---
 
 ## ✨ Fitur Utama
 
 ### 🎯 Core Features
-- ⚡ **Auto Priority Detection** - Keyword-based otomatis (urgent/normal/low)
-- ⏱️ **SLA Tracking** - Deadline otomatis & breach detection
+- 🤖 **ML Auto Priority Detection** - Prediksi prioritas pakai Python ML (akurasi 87%)
+- ⚡ **Rule-Based Fallback** - Keyword detection jika ML tidak tersedia
+- ⏱️ **SLA Tracking** - Deadline otomatis (2/6/24 jam) & breach detection
 - 👥 **Role-Based Access** - Admin, Agent, User dengan batasan berbeda
 - 📊 **Dashboard Analytics** - Statistik real-time & tren mingguan
 - 🔄 **Ticket Lifecycle** - Open → In Progress → Resolved → Closed
@@ -48,6 +69,15 @@ Sistem tiket helpdesk IT fullstack dengan **auto-priority detection**, **SLA tra
 | Spatie Permission | 6.x | Role & Permission |
 | Pest | 3.x | Testing |
 
+### ML Service (Python)
+| Teknologi | Versi | Fungsi |
+|-----------|-------|--------|
+| Python | 3.10+ | ML Runtime |
+| Flask | 3.x | ML API Server |
+| scikit-learn | 1.7+ | ML Library |
+| pandas | 2.x | Data Processing |
+| joblib | 1.5+ | Model Serialization |
+
 ### Frontend
 | Teknologi | Versi | Fungsi |
 |-----------|-------|--------|
@@ -57,6 +87,8 @@ Sistem tiket helpdesk IT fullstack dengan **auto-priority detection**, **SLA tra
 | shadcn/ui | Latest | UI Components |
 | React Query | 5.x | Data Fetching |
 | Axios | 1.x | HTTP Client |
-| Sonner | Latest | Toast |
+| Sonner | Latest | Toast Notifications |
 
 ---
+
+## 📁 Project Structure
