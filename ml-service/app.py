@@ -29,14 +29,14 @@ def load_model():
     try:
         if os.path.exists(MODEL_PATH):
             model = joblib.load(MODEL_PATH)
-            logger.info(f"✅ Model loaded from {MODEL_PATH}")
+            logger.info(f"Model loaded from {MODEL_PATH}")
             return True
         else:
-            logger.warning(f"⚠️  Model file not found: {MODEL_PATH}")
+            logger.warning(f"Model file not found: {MODEL_PATH}")
             logger.warning("   Run: python train_model.py first!")
             return False
     except Exception as e:
-        logger.error(f"❌ Error loading model: {e}")
+        logger.error(f"Error loading model: {e}")
         return False
 
 # Load model saat startup
@@ -205,13 +205,13 @@ def server_error(e):
 
 if __name__ == '__main__':
     print("\n" + "=" * 50)
-    print("🤖 ML Priority Prediction Service")
+    print("ML Priority Prediction Service")
     print("=" * 50)
-    print(f"📡 Running on: http://localhost:5000")
-    print(f"📋 Health check: http://localhost:5000/health")
-    print(f"🔮 Predict: POST http://localhost:5000/predict")
-    print(f"🔄 Retrain: POST http://localhost:5000/retrain")
-    print(f"📦 Model: {'✅ Loaded' if model else '❌ Not loaded'}")
+    print(f"Running on: http://localhost:5000")
+    print(f"Health check: http://localhost:5000/health")
+    print(f"Predict: POST http://localhost:5000/predict")
+    print(f"Retrain: POST http://localhost:5000/retrain")
+    print(f"Model: {'Loaded' if model else 'Not loaded'}")
     print("=" * 50 + "\n")
     
     app.run(host='0.0.0.0', port=5000, debug=True)
