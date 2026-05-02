@@ -7,7 +7,6 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-336791?style=flat&logo=postgresql)
 ![Python](https://img.shields.io/badge/Python-ML-3776AB?style=flat&logo=python)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=flat&logo=scikit-learn)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat)
 
 > Sistem tiket helpdesk IT cerdas dengan **Machine Learning** untuk deteksi prioritas otomatis. Cukup tulis judul dan deskripsi masalah, sistem akan memprediksi prioritas tiket secara otomatis!
 
