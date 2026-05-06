@@ -9,9 +9,13 @@ use App\Models\User;
 use App\Services\PriorityService;
 use App\Services\SLAService;
 use App\Traits\ApiResponse;
+use App\Notifications\TicketAssigned;
+use App\Notifications\TicketCreatedAdmin;
+use App\Notifications\TicketCreatedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class TicketController extends Controller
 {
@@ -127,6 +131,12 @@ class TicketController extends Controller
 
             $ticket->load(['user:id,name,email']);
             $ticket->sla_message = $this->priorityService->getSlaMessage($ticket->priority);
+
+            $creator = Auth::user();
+            $creator->notify(new TicketCreatedUser($ticket));
+
+            $admins = User::whereHas('roles', function($q) { $q->where('name', 'admin'); })->get();
+            Notification::send($admins, new TicketCreatedAdmin($ticket, $creator->name));
 
             return $this->successResponse($ticket, 'Ticket created successfully', 201);
         } catch (\Exception $e) {
@@ -316,6 +326,9 @@ class TicketController extends Controller
             DB::commit();
 
             $ticket->refresh()->load(['user:id,name,email', 'assignedTo:id,name,email']);
+            
+            $agent->notify(new TicketAssigned($ticket));
+
             return $this->successResponse($ticket, 'Ticket assigned successfully');
         } catch (\Exception $e) {
             DB::rollBack();
