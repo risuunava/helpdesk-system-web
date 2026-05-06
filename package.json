@@ -5,7 +5,7 @@
     "dev": "concurrently -n FRONTEND,BACKEND,ML -c blue,green,yellow \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:ml\"",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "cd backend && php artisan serve --host=127.0.0.1 --port=8000",
-    "dev:ml": "cd ml-service && python app.py"
+    "dev:ml": "cd ml-service && venv\\Scripts\\python app.py"
   },
   "dependencies": {
     "sonner": "^2.0.7"
