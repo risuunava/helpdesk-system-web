@@ -46,6 +46,11 @@ class Ticket extends Model
         return $this->hasMany(TicketLog::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(TicketComment::class);
+    }
+
     // Auto-generate ticket number
     protected static function boot()
     {

@@ -30,7 +30,7 @@ export default function NotificationsPage() {
   const fetchNotifications = async () => {
     try {
       const response = await api.get('/notifications');
-      if (response.data.status === 'success') {
+      if (response.data.success) {
         // Handle pagination data format (response.data.data.notifications.data)
         setNotifications(response.data.data.notifications.data);
         setUnreadCount(response.data.data.unread_count);

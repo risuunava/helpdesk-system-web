@@ -31,7 +31,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
     if (user) {
       api.get('/notifications')
         .then(res => {
-          if (res.data.status === 'success') {
+          if (res.data.success) {
             setUnreadCount(res.data.data.unread_count);
           }
         })

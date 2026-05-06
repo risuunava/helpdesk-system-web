@@ -2,6 +2,7 @@
 
 import { useTicket, useUpdateTicket } from '@/hooks/use-tickets';
 import { useAuth } from '@/hooks/use-auth';
+import { TicketChat } from '@/components/tickets/ticket-chat';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -126,6 +127,7 @@ export default function TicketDetailPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
+
         {/* Left: Content */}
         <div className="space-y-6">
           <Card>
@@ -134,6 +136,9 @@ export default function TicketDetailPage() {
               <p className="whitespace-pre-wrap text-muted-foreground">{ticket.description}</p>
             </CardContent>
           </Card>
+
+          {/* Real-time Chat Section */}
+          <TicketChat ticketId={id} />
 
           <Card>
             <CardHeader><CardTitle className="text-lg">Log Aktivitas</CardTitle></CardHeader>

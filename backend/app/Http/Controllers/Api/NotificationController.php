@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Get user's notifications
      */
@@ -18,13 +21,10 @@ class NotificationController extends Controller
         
         $unreadCount = $user->unreadNotifications()->count();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'notifications' => $notifications,
-                'unread_count' => $unreadCount
-            ]
-        ]);
+        return $this->successResponse([
+            'notifications' => $notifications,
+            'unread_count' => $unreadCount
+        ], 'Notifications retrieved successfully');
     }
 
     /**
@@ -36,16 +36,10 @@ class NotificationController extends Controller
         
         if ($notification) {
             $notification->markAsRead();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Notification marked as read'
-            ]);
+            return $this->successResponse(null, 'Notification marked as read');
         }
 
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Notification not found'
-        ], 404);
+        return $this->errorResponse('Notification not found', 404);
     }
 
     /**
@@ -55,9 +49,6 @@ class NotificationController extends Controller
     {
         $request->user()->unreadNotifications->markAsRead();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'All notifications marked as read'
-        ]);
+        return $this->successResponse(null, 'All notifications marked as read');
     }
 }

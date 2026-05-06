@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\TicketController;
+use App\Http\Controllers\Api\TicketCommentController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Tickets CRUD
     Route::apiResource('tickets', TicketController::class);
+    
+    // Ticket Comments
+    Route::get('/tickets/{ticket}/comments', [TicketCommentController::class, 'index']);
+    Route::post('/tickets/{ticket}/comments', [TicketCommentController::class, 'store']);
 
     // Additional ticket routes
     Route::patch('/tickets/{ticket}/assign', [TicketController::class, 'assign']);
