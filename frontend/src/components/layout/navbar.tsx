@@ -1,10 +1,12 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Menu, Moon, Sun, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
+import api from '@/lib/api';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +25,19 @@ export function Navbar({ onMenuClick }: NavbarProps) {
   const { setTheme, resolvedTheme } = useTheme();
   const { user, logout } = useAuth();
   const router = useRouter();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      api.get('/notifications')
+        .then(res => {
+          if (res.data.status === 'success') {
+            setUnreadCount(res.data.data.unread_count);
+          }
+        })
+        .catch(err => console.error('Failed to fetch unread count', err));
+    }
+  }, [user]);
 
   const handleLogout = async () => {
     await logout();
@@ -59,9 +74,19 @@ export function Navbar({ onMenuClick }: NavbarProps) {
         </Button>
 
         {/* Notifications */}
-        <Button variant="ghost" size="icon" className="relative">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="relative"
+          onClick={() => router.push('/notifications')}
+        >
           <Bell className="h-4 w-4" />
-          <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500" />
+          {unreadCount > 0 && (
+            <span className="absolute top-1.5 right-1.5 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500"></span>
+            </span>
+          )}
         </Button>
 
         {/* User menu */}
