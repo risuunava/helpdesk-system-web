@@ -2,9 +2,10 @@
   "name": "helpdesk-system",
   "private": true,
   "scripts": {
-    "dev": "concurrently -n FRONTEND,BACKEND,ML -c blue,green,yellow \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:ml\"",
+    "dev": "concurrently -n FRONTEND,BACKEND,REVERB,ML -c blue,green,magenta,yellow \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:reverb\" \"npm run dev:ml\"",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "cd backend && php artisan serve --host=127.0.0.1 --port=8000",
+    "dev:reverb": "cd backend && php artisan reverb:start",
     "dev:ml": "cd ml-service && venv\\Scripts\\python app.py"
   },
   "dependencies": {
