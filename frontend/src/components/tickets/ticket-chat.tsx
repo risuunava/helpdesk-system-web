@@ -62,8 +62,12 @@ export function TicketChat({ ticketId }: TicketChatProps) {
       .listen('.comment.posted', (data: { comment: Comment }) => {
         console.log('Real-time comment received:', data);
         setComments((prev) => {
-            // Avoid duplicate comments if we sent it ourselves
+            // Jika komentar ini internal tapi user adalah 'User' biasa, jangan tampilkan
+            if (data.comment.is_internal && !isAdmin && !isAgent) return prev;
+            
+            // Hindari duplikasi jika kita yang mengirim sendiri
             if (prev.some(c => c.id === data.comment.id)) return prev;
+            
             return [...prev, data.comment];
         });
       });
