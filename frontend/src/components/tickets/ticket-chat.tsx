@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Send, Lock } from 'lucide-react';
 import api from '@/lib/api';
 import { cn } from '@/lib/utils';
+import echo from '@/lib/echo';
 
 interface Comment {
   id: number;
@@ -53,9 +54,23 @@ export function TicketChat({ ticketId }: TicketChatProps) {
 
   useEffect(() => {
     fetchComments();
-    // Simple polling for "real-time" feel without web sockets
-    const interval = setInterval(fetchComments, 10000);
-    return () => clearInterval(interval);
+
+    if (!echo) return;
+
+    // Listen to the private channel
+    const channel = echo.private(`tickets.${ticketId}`)
+      .listen('.comment.posted', (data: { comment: Comment }) => {
+        console.log('Real-time comment received:', data);
+        setComments((prev) => {
+            // Avoid duplicate comments if we sent it ourselves
+            if (prev.some(c => c.id === data.comment.id)) return prev;
+            return [...prev, data.comment];
+        });
+      });
+
+    return () => {
+        echo?.leave(`tickets.${ticketId}`);
+    };
   }, [ticketId]);
 
   useEffect(() => {

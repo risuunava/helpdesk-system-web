@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\CommentPosted;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\TicketComment;
@@ -83,6 +84,9 @@ class TicketCommentController extends Controller
         else if (!$comment->is_internal) {
             $ticket->user->notify(new NewCommentNotification($ticket, $comment));
         }
+
+        // --- Broadcast for Real-time ---
+        broadcast(new CommentPosted($comment))->toOthers();
 
         return $this->successResponse($comment, 'Comment posted successfully', 201);
     }
