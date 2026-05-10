@@ -3,11 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCreateTicket } from '@/hooks/use-tickets';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { useToast } from '../../../../hooks/use-toast';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
@@ -52,37 +47,41 @@ export default function CreateTicketPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-8 pb-12">
       <div className="flex items-center gap-4">
         <Link href="/tickets">
-          <Button variant="ghost" size="icon">
+          <button className="btn-icon">
             <ArrowLeft className="h-4 w-4" />
-          </Button>
+          </button>
         </Link>
-        <h1 className="text-3xl font-bold">Create Ticket</h1>
+        <h1 className="headline text-ink">Buat Tiket Baru</h1>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Ticket Details</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="title">Title *</Label>
-              <Input
-                id="title"
-                placeholder="Brief description of the issue"
-                value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-                required
-              />
-            </div>
+      <div className="card-pricing">
+        <div className="mb-6">
+          <h2 className="body-lg font-bold text-ink">Detail Tiket</h2>
+          <p className="body-sm text-ink-muted mt-1">Lengkapi informasi berikut untuk melaporkan kendala IT Anda.</p>
+        </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="title" className="caption text-ink-muted">Subjek / Judul *</label>
+            <input
+              id="title"
+              type="text"
+              placeholder="Jelaskan kendala secara singkat"
+              className="w-full input-framer placeholder:text-ink-muted/50"
+              value={formData.title}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="category" className="caption text-ink-muted">Kategori</label>
+            <div className="relative">
               <select
                 id="category"
                 value={formData.category}
@@ -92,7 +91,7 @@ export default function CreateTicketPage() {
                     category: e.target.value as any,
                   })
                 }
-                className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                className="w-full input-framer appearance-none"
               >
                 <option value="hardware">Hardware</option>
                 <option value="software">Software</option>
@@ -101,40 +100,42 @@ export default function CreateTicketPage() {
                 <option value="other">Other</option>
               </select>
             </div>
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
-              <Textarea
-                id="description"
-                placeholder="Detailed description of the issue..."
-                rows={6}
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-                required
-              />
-            </div>
+          <div className="space-y-2">
+            <label htmlFor="description" className="caption text-ink-muted">Deskripsi Kendala *</label>
+            <textarea
+              id="description"
+              placeholder="Berikan detail mengenai kendala yang Anda alami..."
+              rows={6}
+              className="w-full input-framer placeholder:text-ink-muted/50 resize-none"
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
+              required
+            />
+          </div>
 
-            <div className="flex items-center gap-3 pt-4">
-              <Button
-                type="submit"
-                disabled={createTicket.isPending}
-              >
-                {createTicket.isPending && (
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                )}
-                Create Ticket
-              </Button>
-              <Link href="/tickets">
-                <Button type="button" variant="outline">
-                  Cancel
-                </Button>
-              </Link>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+          <div className="flex items-center gap-3 pt-6">
+            <button
+              type="submit"
+              className="btn-primary flex items-center h-11 px-6"
+              disabled={createTicket.isPending}
+            >
+              {createTicket.isPending && (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              )}
+              Kirim Tiket
+            </button>
+            <Link href="/tickets">
+              <button type="button" className="btn-secondary h-11 px-6">
+                Batal
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -7,7 +7,6 @@ import { useAuth } from '@/hooks/use-auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Ticket, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
@@ -32,97 +31,95 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-purple-500/10 blur-3xl" />
+    <div className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden p-4">
+      {/* Background decoration - Spotlight Cards acting as atmosphere */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none flex justify-center items-center opacity-30">
+        <div className="absolute -top-[20%] -left-[10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-purple-800 to-blue-600 blur-[120px]" />
+        <div className="absolute -bottom-[20%] -right-[10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-pink-700 to-rose-500 blur-[120px]" />
       </div>
 
-      <div className="w-full max-w-md relative z-10">
+      <div className="w-full max-w-[420px] relative z-10">
         {/* Logo */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
-              <Ticket className="h-5 w-5 text-white" />
+            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+              <Ticket className="h-5 w-5 text-on-primary" />
             </div>
-            <span className="text-2xl font-bold text-white">HelpDesk</span>
+            <span className="text-[24px] font-display font-medium tracking-[-0.01px] text-ink">HelpDesk</span>
           </div>
         </div>
 
-        <Card className="border-slate-700/50 bg-slate-800/50 backdrop-blur shadow-2xl">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-white">Masuk</CardTitle>
-            <CardDescription className="text-slate-400">
+        <div className="bg-surface-1 shadow-[0_10px_40px_rgba(0,0,0,0.5),inset_0_0.5px_0_rgba(255,255,255,0.08)] rounded-xl p-[32px]">
+          <div className="mb-8 text-center">
+            <h1 className="display-md text-ink mb-2">Masuk</h1>
+            <p className="body text-ink-muted">
               Masukkan kredensial Anda untuk melanjutkan
-            </CardDescription>
-          </CardHeader>
+            </p>
+          </div>
 
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {error && (
-                <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
-                  <AlertCircle className="h-4 w-4 shrink-0" />
-                  {error}
-                </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="flex items-center gap-2 p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive-foreground body-sm">
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                {error}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="caption text-ink-muted ml-1">Email</Label>
+              <input
+                id="email"
+                type="email"
+                placeholder="admin@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full input-framer placeholder:text-ink-muted/50"
+                required
+                autoComplete="email"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="caption text-ink-muted ml-1">Password</Label>
+              </div>
+              <input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="w-full input-framer placeholder:text-ink-muted/50"
+                required
+                autoComplete="current-password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full btn-primary h-[44px] mt-2"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Memproses...
+                </>
+              ) : (
+                'Masuk'
               )}
+            </button>
+          </form>
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-300">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500"
-                  required
-                  autoComplete="email"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-slate-300">Password</Label>
-                </div>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500"
-                  required
-                  autoComplete="current-password"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold h-11"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Memproses...
-                  </>
-                ) : (
-                  'Masuk'
-                )}
-              </Button>
-            </form>
-          </CardContent>
-
-          <CardFooter className="justify-center">
-            <p className="text-sm text-slate-400">
+          <div className="mt-8 text-center">
+            <p className="body-sm text-ink-muted">
               Belum punya akun?{' '}
-              <Link href="/register" className="text-blue-400 hover:text-blue-300 font-medium underline-offset-4 hover:underline">
+              <Link href="/register" className="text-accent-blue hover:text-accent-blue/80 font-medium transition-colors">
                 Daftar sekarang
               </Link>
             </p>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

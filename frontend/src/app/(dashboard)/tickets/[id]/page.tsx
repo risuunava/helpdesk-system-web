@@ -3,11 +3,7 @@
 import { useTicket, useUpdateTicket } from '@/hooks/use-tickets';
 import { useAuth } from '@/hooks/use-auth';
 import { TicketChat } from '@/components/tickets/ticket-chat';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery } from '@tanstack/react-query';
 import type { Status } from '@/types/ticket';
@@ -33,7 +29,6 @@ export default function TicketDetailPage() {
   const [assignTo, setAssignTo] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Fetch agents list for assign dropdown (admin only)
   const { data: agentsData } = useQuery({
     queryKey: ['agents'],
     queryFn: async () => { const { data } = await api.get<{ data: Agent[] }>('/agents'); return data.data; },
@@ -42,7 +37,6 @@ export default function TicketDetailPage() {
 
   const ticket = data?.data;
 
-  // Permission checks
   const canUpdateStatus = isAdmin || (isAgent && ticket?.assigned_to === user?.id);
   const canAssign = isAdmin;
   const canDelete = isAdmin;
@@ -82,22 +76,28 @@ export default function TicketDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto space-y-6">
-        <Skeleton className="h-8 w-32" />
-        <Skeleton className="h-64 w-full" />
+      <div className="max-w-5xl mx-auto space-y-6 pb-12">
+        <Skeleton className="h-10 w-32 bg-surface-1" />
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="md:col-span-2 space-y-6">
+            <Skeleton className="h-64 w-full bg-surface-1 rounded-xl" />
+            <Skeleton className="h-96 w-full bg-surface-1 rounded-xl" />
+          </div>
+          <Skeleton className="h-[500px] w-full bg-surface-1 rounded-xl" />
+        </div>
       </div>
     );
   }
 
   if (error || !ticket) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="text-center">
+      <div className="flex items-center justify-center h-[70vh]">
+        <div className="text-center card-pricing max-w-sm">
           <AlertTriangle className="h-12 w-12 text-destructive mx-auto mb-4" />
-          <h2 className="text-xl font-semibold mb-2">Error</h2>
-          <p className="text-muted-foreground">Tiket tidak ditemukan atau akses ditolak</p>
-          <Link href="/tickets" className="mt-4 inline-block">
-            <Button variant="outline">Kembali</Button>
+          <h2 className="headline text-ink mb-2">Error</h2>
+          <p className="body text-ink-muted">Tiket tidak ditemukan atau akses ditolak</p>
+          <Link href="/tickets" className="mt-6 inline-block">
+            <button className="btn-secondary px-6">Kembali</button>
           </Link>
         </div>
       </div>
@@ -105,160 +105,193 @@ export default function TicketDetailPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-8 pb-12">
       {/* Header */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row md:items-center gap-6">
         <Link href="/tickets">
-          <Button variant="ghost" size="icon"><ArrowLeft className="h-4 w-4" /></Button>
+          <button className="btn-icon">
+            <ArrowLeft className="h-4 w-4" />
+          </button>
         </Link>
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm text-muted-foreground">{ticket.ticket_number}</span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="micro font-bold uppercase tracking-widest bg-surface-2 px-2 py-0.5 rounded text-ink-muted">
+              {ticket.ticket_number}
+            </span>
             <StatusBadge status={ticket.status} />
             <PriorityBadge priority={ticket.priority} />
           </div>
-          <h1 className="text-2xl font-bold">{ticket.title}</h1>
+          <h1 className="headline text-[28px] text-ink">{ticket.title}</h1>
         </div>
-        {canDelete && (
-          <Button variant="destructive" size="sm" onClick={handleDelete} disabled={isDeleting}>
-            <Trash2 className="h-4 w-4 mr-1" /> Hapus
-          </Button>
-        )}
+        <div className="flex items-center gap-3">
+          {canDelete && (
+            <button 
+              className="flex items-center gap-2 bg-destructive/10 text-destructive hover:bg-destructive/20 px-4 py-2 rounded-pill text-[13px] font-medium transition-colors" 
+              onClick={handleDelete} 
+              disabled={isDeleting}
+            >
+              <Trash2 className="h-4 w-4" /> Hapus
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* Left: Content */}
-        <div className="space-y-6">
-          <Card>
-            <CardHeader><CardTitle className="text-lg">Deskripsi</CardTitle></CardHeader>
-            <CardContent>
-              <p className="whitespace-pre-wrap text-muted-foreground">{ticket.description}</p>
-            </CardContent>
-          </Card>
+        <div className="lg:col-span-2 space-y-6">
+          <div className="card-pricing bg-surface-1 border border-hairline">
+            <h2 className="caption font-bold text-ink-muted uppercase tracking-widest mb-4">Deskripsi</h2>
+            <div className="body text-ink leading-relaxed whitespace-pre-wrap">{ticket.description}</div>
+          </div>
 
           {/* Real-time Chat Section */}
-          <TicketChat ticketId={id} />
+          <div className="card-pricing bg-canvas border border-hairline p-0 overflow-hidden">
+             <TicketChat ticketId={id} />
+          </div>
 
-          <Card>
-            <CardHeader><CardTitle className="text-lg">Log Aktivitas</CardTitle></CardHeader>
-            <CardContent>
-              {ticket.logs && ticket.logs.length > 0 ? (
-                <div className="space-y-4">
-                  {ticket.logs.map((log) => (
-                    <div key={log.id} className="flex gap-3">
-                      <div className="flex flex-col items-center">
-                        <div className="h-2 w-2 rounded-full bg-primary mt-2" />
-                        <div className="w-px flex-1 bg-border mt-1" />
-                      </div>
-                      <div className="flex-1 pb-4">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium text-sm">{log.user?.name}</span>
-                          <Badge variant="outline" className="text-xs">{log.action}</Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-1">{log.description}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{new Date(log.created_at).toLocaleString()}</p>
-                      </div>
+          <div className="card-pricing bg-surface-1 border border-hairline">
+            <h2 className="caption font-bold text-ink-muted uppercase tracking-widest mb-6">Log Aktivitas</h2>
+            {ticket.logs && ticket.logs.length > 0 ? (
+              <div className="space-y-6">
+                {ticket.logs.map((log, idx) => (
+                  <div key={log.id} className="flex gap-4 group">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-accent-blue mt-2 shadow-[0_0_8px_rgba(0,153,255,0.5)]" />
+                      {idx !== ticket.logs!.length - 1 && <div className="w-px flex-1 bg-hairline-soft mt-2" />}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">Belum ada aktivitas</p>
-              )}
-            </CardContent>
-          </Card>
+                    <div className="flex-1 pb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="body-sm font-bold text-ink">{log.user?.name}</span>
+                        <span className="micro px-2 py-0.5 rounded bg-surface-2 text-ink-muted border border-hairline-soft uppercase tracking-tighter">{log.action}</span>
+                      </div>
+                      <p className="body-sm text-ink-muted mt-1">{log.description}</p>
+                      <p className="micro text-ink-muted/50 mt-1">{new Date(log.created_at).toLocaleString('id-ID')}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="body-sm text-ink-muted italic">Belum ada aktivitas tercatat.</p>
+            )}
+          </div>
         </div>
 
         {/* Right: Sidebar */}
         <div className="space-y-6">
-          {/* Status Actions — only for admin & assigned agent */}
+          {/* Status Actions */}
           {canUpdateStatus && (
-            <Card>
-              <CardHeader><CardTitle className="text-lg">Ubah Status</CardTitle></CardHeader>
-              <CardContent className="space-y-3">
-                <div className="grid grid-cols-2 gap-2">
-                  {(['open', 'in_progress', 'resolved', 'closed'] as Status[]).map((s) => (
-                    <Button key={s} variant={ticket.status === s ? 'default' : 'outline'} size="sm"
-                      onClick={() => handleStatusUpdate(s)} disabled={updateTicket.isPending}>
-                      {s === 'open' ? 'Open' : s === 'in_progress' ? 'In Progress' : s === 'resolved' ? 'Resolved' : 'Closed'}
-                    </Button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <div className="card-pricing border border-hairline">
+              <h2 className="caption font-bold text-ink-muted uppercase tracking-widest mb-4">Ubah Status</h2>
+              <div className="grid grid-cols-2 gap-2">
+                {(['open', 'in_progress', 'resolved', 'closed'] as Status[]).map((s) => (
+                  <button 
+                    key={s} 
+                    className={`text-[12px] font-medium px-2 py-2 rounded-md transition-all border ${
+                      ticket.status === s 
+                      ? 'bg-accent-blue text-white border-accent-blue shadow-[0_0_15px_rgba(0,153,255,0.3)]' 
+                      : 'bg-surface-2 text-ink-muted border-hairline hover:border-accent-blue/50'
+                    }`}
+                    onClick={() => handleStatusUpdate(s)} 
+                    disabled={updateTicket.isPending}
+                  >
+                    {s === 'open' ? 'Open' : s === 'in_progress' ? 'In Progress' : s === 'resolved' ? 'Resolved' : 'Closed'}
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
 
-          {/* Assign — admin only */}
+          {/* Assign */}
           {canAssign && (
-            <Card>
-              <CardHeader><CardTitle className="text-lg flex items-center gap-2">
-                <UserPlus className="h-4 w-4" /> Assign Tiket
-              </CardTitle></CardHeader>
-              <CardContent className="space-y-3">
+            <div className="card-pricing border border-hairline">
+              <h2 className="caption font-bold text-ink-muted uppercase tracking-widest mb-4 flex items-center gap-2">
+                <UserPlus className="h-3.5 w-3.5" /> Assign Tiket
+              </h2>
+              <div className="space-y-4">
                 {ticket.assignedTo ? (
-                  <p className="text-sm text-muted-foreground">
-                    Saat ini: <strong className="text-foreground">{ticket.assignedTo.name}</strong>
-                  </p>
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-2 border border-hairline-soft">
+                    <div className="w-8 h-8 rounded-full bg-accent-blue/20 flex items-center justify-center text-accent-blue font-bold text-xs">
+                      {ticket.assignedTo.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="micro text-ink-muted">Assignee Saat Ini</p>
+                      <p className="body-sm font-bold text-ink">{ticket.assignedTo.name}</p>
+                    </div>
+                  </div>
                 ) : (
-                  <p className="text-sm text-muted-foreground">Belum di-assign ke agent</p>
+                  <p className="body-sm text-rose-400 italic bg-rose-500/5 p-3 rounded-lg border border-rose-500/10">Belum di-assign ke agent</p>
                 )}
-                <div className="flex gap-2">
-                  <select value={assignTo} onChange={(e) => setAssignTo(e.target.value)}
-                    className="flex-1 h-9 rounded-md border border-input bg-background px-3 text-sm">
+                <div className="flex flex-col gap-2">
+                  <select 
+                    value={assignTo} 
+                    onChange={(e) => setAssignTo(e.target.value)}
+                    className="w-full input-framer appearance-none text-[13px]"
+                  >
                     <option value="">-- Pilih Agent --</option>
                     {(agentsData ?? []).map((agent: Agent) => (
                       <option key={agent.id} value={agent.id}>{agent.name}</option>
                     ))}
                   </select>
-                  <Button size="sm" onClick={handleAssign} disabled={!assignTo}>Assign</Button>
+                  <button className="btn-primary w-full h-9 text-[13px]" onClick={handleAssign} disabled={!assignTo}>
+                    Assign Agent
+                  </button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )}
 
           {/* Details */}
-          <Card>
-            <CardHeader><CardTitle className="text-lg">Detail</CardTitle></CardHeader>
-            <CardContent className="space-y-4">
+          <div className="card-pricing border border-hairline space-y-5">
+            <h2 className="caption font-bold text-ink-muted uppercase tracking-widest">Detail Informasi</h2>
+            
+            <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <User2 className="h-4 w-4 text-muted-foreground" />
+                <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center">
+                  <User2 className="h-4 w-4 text-ink-muted" />
+                </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Dibuat oleh</p>
-                  <p className="font-medium text-sm">{ticket.user?.name}</p>
+                  <p className="micro text-ink-muted">Pelapor</p>
+                  <p className="body-sm font-bold text-ink">{ticket.user?.name}</p>
                 </div>
               </div>
-              <Separator />
+
               <div className="flex items-center gap-3">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center">
+                  <Calendar className="h-4 w-4 text-ink-muted" />
+                </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Tanggal</p>
-                  <p className="font-medium text-sm">{new Date(ticket.created_at).toLocaleString()}</p>
+                  <p className="micro text-ink-muted">Dibuat Pada</p>
+                  <p className="body-sm font-bold text-ink">{new Date(ticket.created_at).toLocaleString('id-ID')}</p>
                 </div>
               </div>
-              <Separator />
+
               <div className="flex items-center gap-3">
-                <Clock className="h-4 w-4 text-muted-foreground" />
+                <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center">
+                  <Clock className="h-4 w-4 text-ink-muted" />
+                </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">SLA Deadline</p>
-                  <p className={`font-medium text-sm ${ticket.sla_breached ? 'text-red-600' : ''}`}>
-                    {ticket.sla_due_at ? new Date(ticket.sla_due_at).toLocaleString() : 'N/A'}
+                  <p className="micro text-ink-muted">Deadline SLA</p>
+                  <p className={`body-sm font-bold ${ticket.sla_breached ? 'text-rose-500' : 'text-ink'}`}>
+                    {ticket.sla_due_at ? new Date(ticket.sla_due_at).toLocaleString('id-ID') : 'N/A'}
                   </p>
                 </div>
               </div>
-              <Separator />
+
               <div className="flex items-center gap-3">
-                {ticket.sla_breached
-                  ? <AlertTriangle className="h-4 w-4 text-red-600" />
-                  : <CheckCircle2 className="h-4 w-4 text-green-600" />}
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${ticket.sla_breached ? 'bg-rose-500/10' : 'bg-semantic-success/10'}`}>
+                  {ticket.sla_breached
+                    ? <AlertTriangle className="h-4 w-4 text-rose-500" />
+                    : <CheckCircle2 className="h-4 w-4 text-semantic-success" />}
+                </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">SLA Status</p>
-                  <p className={`font-medium text-sm ${ticket.sla_breached ? 'text-red-600' : 'text-green-600'}`}>
+                  <p className="micro text-ink-muted">SLA Status</p>
+                  <p className={`body-sm font-bold ${ticket.sla_breached ? 'text-rose-500' : 'text-semantic-success'}`}>
                     {ticket.sla_status}
                   </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -266,15 +299,28 @@ export default function TicketDetailPage() {
 }
 
 function PriorityBadge({ priority }: { priority: string }) {
-  const v: Record<string, 'default'|'destructive'|'outline'|'secondary'> = {
-    urgent: 'destructive', normal: 'default', low: 'secondary',
+  const styles: Record<string, string> = {
+    urgent: 'bg-rose-500/20 text-rose-400 border-rose-500/20',
+    normal: 'bg-accent-blue/20 text-accent-blue border-accent-blue/20',
+    low: 'bg-surface-2 text-ink-muted border-hairline',
   };
-  return <Badge variant={v[priority] || 'secondary'} className="text-xs">{priority}</Badge>;
+  return (
+    <span className={`micro font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${styles[priority] || styles.low}`}>
+      {priority}
+    </span>
+  );
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const v: Record<string, 'default'|'destructive'|'outline'|'secondary'> = {
-    open: 'secondary', in_progress: 'default', resolved: 'outline', closed: 'outline',
+  const styles: Record<string, string> = {
+    open: 'bg-rose-500/10 text-rose-500 border-rose-500/20',
+    in_progress: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+    resolved: 'bg-semantic-success/10 text-semantic-success border-semantic-success/20',
+    closed: 'bg-surface-2 text-ink-muted border-hairline-soft',
   };
-  return <Badge variant={v[status] || 'secondary'} className="text-xs">{status.replace('_', ' ')}</Badge>;
+  return (
+    <span className={`micro font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${styles[status] || styles.closed}`}>
+      {status.replace('_', ' ')}
+    </span>
+  );
 }

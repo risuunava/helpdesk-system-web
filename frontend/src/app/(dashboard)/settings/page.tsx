@@ -1,162 +1,128 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/use-auth';
-import { Settings, User, Bell, Shield, Globe } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { User, Bell, Shield, Info } from 'lucide-react';
 
 export default function SettingsPage() {
   const { user } = useAuth();
-  const { theme, setTheme } = useTheme();
   const [notifications, setNotifications] = useState(true);
 
   return (
-    <div className="space-y-6 max-w-2xl">
+    <div className="space-y-10 max-w-3xl mx-auto pb-12">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Pengaturan</h1>
-        <p className="text-muted-foreground mt-1">Kelola preferensi akun Anda</p>
+        <h1 className="display-md text-ink">Pengaturan</h1>
+        <p className="body-lg text-ink-muted mt-2">Kelola preferensi akun dan sistem Anda</p>
       </div>
 
-      {/* Profile */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-              <User className="h-4 w-4 text-blue-600" />
+      <div className="grid gap-6">
+        {/* Profile */}
+        <div className="card-pricing border border-hairline">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-10 h-10 rounded-full bg-accent-blue/10 flex items-center justify-center border border-accent-blue/20">
+              <User className="h-5 w-5 text-accent-blue" />
             </div>
             <div>
-              <CardTitle className="text-base">Profil</CardTitle>
-              <CardDescription>Informasi akun Anda</CardDescription>
+              <h2 className="headline text-ink">Profil Saya</h2>
+              <p className="micro text-ink-muted mt-1 uppercase tracking-widest font-bold">Informasi Akun</p>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label>Nama</Label>
-            <Input defaultValue={user?.name ?? ''} disabled />
-          </div>
-          <div className="space-y-2">
-            <Label>Email</Label>
-            <Input defaultValue={user?.email ?? ''} disabled />
-          </div>
-          <div className="space-y-2">
-            <Label>Role</Label>
-            <div className="flex gap-2">
-              {user?.roles?.map((r) => (
-                <Badge key={r} variant="secondary">{r}</Badge>
-              )) ?? <Badge variant="secondary">user</Badge>}
+          
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="space-y-2">
+              <label className="caption text-ink-muted">Nama Lengkap</label>
+              <input 
+                defaultValue={user?.name ?? ''} 
+                disabled 
+                className="w-full input-framer opacity-70 cursor-not-allowed"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="caption text-ink-muted">Alamat Email</label>
+              <input 
+                defaultValue={user?.email ?? ''} 
+                disabled 
+                className="w-full input-framer opacity-70 cursor-not-allowed"
+              />
+            </div>
+            <div className="space-y-2 sm:col-span-2">
+              <label className="caption text-ink-muted">Hak Akses / Role</label>
+              <div className="flex gap-2">
+                {user?.roles?.map((r) => (
+                  <span key={r} className="micro font-bold uppercase tracking-wider px-3 py-1 rounded-pill bg-surface-2 text-ink border border-hairline-soft">
+                    {r}
+                  </span>
+                )) ?? <span className="micro font-bold uppercase tracking-wider px-3 py-1 rounded-pill bg-surface-2 text-ink border border-hairline-soft">user</span>}
+              </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      <Separator />
-
-      {/* Appearance */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-purple-500/10 flex items-center justify-center">
-              <Globe className="h-4 w-4 text-purple-600" />
+        {/* Notifications */}
+        <div className="card-pricing border border-hairline">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+              <Bell className="h-5 w-5 text-amber-500" />
             </div>
             <div>
-              <CardTitle className="text-base">Tampilan</CardTitle>
-              <CardDescription>Sesuaikan tampilan aplikasi</CardDescription>
+              <h2 className="headline text-ink">Notifikasi</h2>
+              <p className="micro text-ink-muted mt-1 uppercase tracking-widest font-bold">Preferensi Pesan</p>
             </div>
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <Label>Tema</Label>
-            <div className="flex gap-2">
-              {(['light', 'dark', 'system'] as const).map((t) => (
-                <Button
-                  key={t}
-                  variant={theme === t ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setTheme(t)}
-                  className="capitalize"
-                >
-                  {t === 'light' ? 'Terang' : t === 'dark' ? 'Gelap' : 'Sistem'}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Separator />
-
-      {/* Notifications */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center">
-              <Bell className="h-4 w-4 text-amber-600" />
-            </div>
+          
+          <div className="flex items-center justify-between p-4 rounded-xl bg-surface-1 border border-hairline-soft">
             <div>
-              <CardTitle className="text-base">Notifikasi</CardTitle>
-              <CardDescription>Kelola preferensi notifikasi</CardDescription>
+              <p className="body-sm font-bold text-ink">Pemberitahuan Tiket</p>
+              <p className="micro text-ink-muted mt-1">Terima notifikasi real-time saat tiket diperbarui atau ada komentar baru.</p>
             </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium">Notifikasi Tiket</p>
-              <p className="text-xs text-muted-foreground">Terima notifikasi saat tiket diperbarui</p>
-            </div>
-            <Button
-              variant={notifications ? 'default' : 'outline'}
-              size="sm"
+            <button
               onClick={() => setNotifications(!notifications)}
+              className={cn(
+                "h-6 w-11 rounded-full p-1 transition-colors",
+                notifications ? "bg-accent-blue" : "bg-surface-2"
+              )}
             >
-              {notifications ? 'Aktif' : 'Nonaktif'}
-            </Button>
+              <div className={cn(
+                "h-4 w-4 rounded-full bg-white transition-transform",
+                notifications ? "translate-x-5" : "translate-x-0"
+              )} />
+            </button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      <Separator />
-
-      {/* System info */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-slate-500/10 flex items-center justify-center">
-              <Shield className="h-4 w-4 text-slate-600" />
+        {/* System info */}
+        <div className="card-pricing border border-hairline">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center border border-violet-500/20">
+              <Info className="h-5 w-5 text-violet-500" />
             </div>
             <div>
-              <CardTitle className="text-base">Informasi Sistem</CardTitle>
-              <CardDescription>Detail teknis aplikasi</CardDescription>
+              <h2 className="headline text-ink">Informasi Sistem</h2>
+              <p className="micro text-ink-muted mt-1 uppercase tracking-widest font-bold">Detail Teknis</p>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Versi</span>
-            <span className="font-medium">1.0.0</span>
+
+          <div className="space-y-4">
+            {[
+              { label: 'Versi Aplikasi', value: '1.2.4-stable' },
+              { label: 'Backend Engine', value: 'Laravel 12 / PHP 8.4' },
+              { label: 'Frontend Framework', value: 'Next.js 15 / React 19' },
+              { label: 'Database Service', value: 'PostgreSQL (Supabase)' },
+              { label: 'Pusher / Reverb', value: 'Laravel Reverb (Real-time)' },
+            ].map((item) => (
+              <div key={item.label} className="flex justify-between items-center py-2 border-b border-hairline-soft last:border-0">
+                <span className="body-sm text-ink-muted">{item.label}</span>
+                <span className="micro font-bold text-ink bg-surface-2 px-2 py-0.5 rounded border border-hairline-soft">{item.value}</span>
+              </div>
+            ))}
           </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Backend</span>
-            <span className="font-medium">Laravel 12</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Frontend</span>
-            <span className="font-medium">Next.js 16</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Database</span>
-            <span className="font-medium">PostgreSQL (Supabase)</span>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
+}
+
+// Utility function inside the same file for simplicity since cn is used
+function cn(...classes: any[]) {
+  return classes.filter(Boolean).join(' ');
 }

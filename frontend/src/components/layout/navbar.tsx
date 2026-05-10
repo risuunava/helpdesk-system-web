@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, Moon, Sun, Bell } from 'lucide-react';
+import { Menu, Bell, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useTheme } from 'next-themes';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
@@ -15,14 +14,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface NavbarProps {
   onMenuClick: () => void;
 }
 
 export function Navbar({ onMenuClick }: NavbarProps) {
-  const { setTheme, resolvedTheme } = useTheme();
   const { user, logout } = useAuth();
   const router = useRouter();
   const [unreadCount, setUnreadCount] = useState(0);
@@ -53,74 +50,68 @@ export function Navbar({ onMenuClick }: NavbarProps) {
       .slice(0, 2);
 
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-16 items-center px-4 gap-4">
+    <header className="sticky top-0 z-30 w-full border-b border-hairline bg-canvas/80 backdrop-blur-xl supports-[backdrop-filter]:bg-canvas/60">
+      <div className="flex h-16 items-center px-6 gap-4">
         {/* Mobile menu toggle */}
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={onMenuClick}>
+        <button 
+          className="md:hidden p-2 rounded-lg bg-surface-2 text-ink hover:bg-surface-2/80 transition-colors" 
+          onClick={onMenuClick}
+        >
           <Menu className="h-5 w-5" />
-        </Button>
+        </button>
+
+        {/* Search Placeholder */}
+        <div className="hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-surface-2/50 border border-hairline-soft w-64 text-ink-muted hover:border-accent-blue/30 transition-all cursor-pointer group">
+          <Search className="h-4 w-4 group-hover:text-accent-blue transition-colors" />
+          <span className="text-[13px] font-medium">Cari tiket atau agen...</span>
+        </div>
 
         <div className="flex-1" />
 
-        {/* Theme toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-          aria-label="Toggle theme"
-        >
-          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        </Button>
-
         {/* Notifications */}
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="relative"
+        <button 
+          className="relative p-2.5 rounded-full bg-surface-2/50 text-ink-muted hover:text-ink hover:bg-surface-2 transition-all border border-hairline-soft"
           onClick={() => router.push('/notifications')}
         >
           <Bell className="h-4 w-4" />
           {unreadCount > 0 && (
-            <span className="absolute top-1.5 right-1.5 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500"></span>
+            <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent-blue text-[9px] font-bold text-white ring-2 ring-canvas animate-in zoom-in">
+              {unreadCount > 9 ? '9+' : unreadCount}
             </span>
           )}
-        </Button>
+        </button>
 
         {/* User menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="text-xs bg-blue-600 text-white">
-                  {user ? getInitials(user.name) : 'U'}
-                </AvatarFallback>
-              </Avatar>
-            </Button>
+            <button className="flex items-center gap-2 p-1 pl-1 pr-3 rounded-full bg-surface-2/50 border border-hairline-soft hover:bg-surface-2 transition-all group">
+              <div className="h-8 w-8 rounded-full bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center text-accent-blue text-[11px] font-bold group-hover:scale-105 transition-transform">
+                {user ? getInitials(user.name) : <User className="h-4 w-4" />}
+              </div>
+              <span className="hidden sm:inline text-[13px] font-bold text-ink">{user?.name.split(' ')[0]}</span>
+            </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-64 p-2 bg-surface-1 border border-hairline shadow-2xl rounded-xl mt-2">
             {user && (
-              <>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-              </>
+              <div className="px-3 py-4 mb-2">
+                <p className="text-[14px] font-bold text-ink leading-tight">{user.name}</p>
+                <p className="text-[12px] text-ink-muted mt-1">{user.email}</p>
+              </div>
             )}
-            <DropdownMenuItem onClick={() => router.push('/settings')}>
-              Pengaturan
+            <DropdownMenuSeparator className="bg-hairline mb-2" />
+            <DropdownMenuItem 
+              onClick={() => router.push('/settings')}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-2 transition-colors cursor-pointer"
+            >
+              <User className="h-4 w-4" />
+              <span className="text-sm font-medium">Pengaturan Profil</span>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="bg-hairline my-2" />
             <DropdownMenuItem
               onClick={handleLogout}
-              className="text-destructive focus:text-destructive"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-rose-400 hover:text-rose-500 hover:bg-rose-500/5 transition-colors cursor-pointer"
             >
-              Keluar
+              <span className="text-sm font-bold">Keluar Aplikasi</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

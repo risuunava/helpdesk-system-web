@@ -3,12 +3,9 @@
 import { useState } from 'react';
 import { useTickets } from '@/hooks/use-tickets';
 import { TicketTable } from '@/components/tickets/ticket-table';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import { Plus, Search, AlertTriangle, Filter } from 'lucide-react';
+import { Plus, Search, AlertTriangle, Filter, X } from 'lucide-react';
 
 export default function TicketsPage() {
   const [search, setSearch]               = useState('');
@@ -27,52 +24,52 @@ export default function TicketsPage() {
   const tickets = data?.data ?? [];
   const meta    = data?.meta;
 
-  // Reset to page 1 when filters change
   const handleFilter = (setter: (v: string) => void) => (v: string) => {
     setter(v);
     setPage(1);
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-[1200px] mx-auto pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Tiket</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="display-md text-ink">Tiket</h1>
+          <p className="body-lg text-ink-muted mt-2">
             Kelola semua tiket dukungan IT
           </p>
         </div>
-        <Link href="/tickets/create">
-          <Button className="gap-2">
-            <Plus className="h-4 w-4" />
-            Buat Tiket
-          </Button>
+        <Link href="/tickets/create" className="btn-primary gap-2 h-11">
+          <Plus className="h-4 w-4" />
+          Buat Tiket
         </Link>
       </div>
 
       {/* Filters */}
-      <Card className="p-4">
-        <div className="flex flex-col sm:flex-row gap-3">
+      <div className="card-pricing">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-            <Input
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted pointer-events-none" />
+            <input
               placeholder="Cari tiket berdasarkan judul, deskripsi, atau nomor..."
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPage(1);
               }}
-              className="pl-9"
+              className="w-full input-framer pl-10"
             />
           </div>
 
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-md bg-surface-2 flex items-center justify-center shrink-0">
+              <Filter className="h-4 w-4 text-ink-muted" />
+            </div>
+            
             <select
               value={statusFilter}
               onChange={(e) => handleFilter(setStatusFilter)(e.target.value)}
-              className="h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+              className="input-framer w-[150px] appearance-none"
             >
               <option value="">Semua Status</option>
               <option value="open">Terbuka</option>
@@ -84,7 +81,7 @@ export default function TicketsPage() {
             <select
               value={priorityFilter}
               onChange={(e) => handleFilter(setPriorityFilter)(e.target.value)}
-              className="h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+              className="input-framer w-[160px] appearance-none"
             >
               <option value="">Semua Prioritas</option>
               <option value="urgent">Urgent</option>
@@ -96,57 +93,59 @@ export default function TicketsPage() {
 
         {/* Active filter chips */}
         {(statusFilter || priorityFilter || search) && (
-          <div className="flex items-center gap-2 mt-3 flex-wrap">
-            <span className="text-xs text-muted-foreground">Filter aktif:</span>
+          <div className="flex items-center gap-2 mt-4 flex-wrap">
+            <span className="micro text-ink-muted mr-1 uppercase tracking-wider font-bold">Filter aktif:</span>
             {search && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary text-xs px-2 py-0.5">
+              <span className="inline-flex items-center gap-1 rounded-sm bg-accent-blue/10 text-accent-blue text-[12px] font-medium px-2 py-1">
                 &quot;{search}&quot;
-                <button onClick={() => setSearch('')} className="hover:opacity-70">×</button>
+                <button onClick={() => setSearch('')} className="hover:text-ink transition-colors"><X className="h-3 w-3" /></button>
               </span>
             )}
             {statusFilter && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary text-xs px-2 py-0.5">
-                {statusFilter}
-                <button onClick={() => setStatusFilter('')} className="hover:opacity-70">×</button>
+              <span className="inline-flex items-center gap-1 rounded-sm bg-accent-blue/10 text-accent-blue text-[12px] font-medium px-2 py-1">
+                Status: {statusFilter}
+                <button onClick={() => setStatusFilter('')} className="hover:text-ink transition-colors"><X className="h-3 w-3" /></button>
               </span>
             )}
             {priorityFilter && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary text-xs px-2 py-0.5">
-                {priorityFilter}
-                <button onClick={() => setPriorityFilter('')} className="hover:opacity-70">×</button>
+              <span className="inline-flex items-center gap-1 rounded-sm bg-accent-blue/10 text-accent-blue text-[12px] font-medium px-2 py-1">
+                Prioritas: {priorityFilter}
+                <button onClick={() => setPriorityFilter('')} className="hover:text-ink transition-colors"><X className="h-3 w-3" /></button>
               </span>
             )}
             <button
               onClick={() => { setSearch(''); setStatusFilter(''); setPriorityFilter(''); setPage(1); }}
-              className="text-xs text-muted-foreground hover:text-foreground underline"
+              className="text-[12px] text-ink-muted hover:text-ink underline underline-offset-2 transition-colors ml-2"
             >
               Reset semua
             </button>
           </div>
         )}
-      </Card>
+      </div>
 
       {/* Loading */}
       {isLoading && (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {[...Array(5)].map((_, i) => (
-            <Skeleton key={i} className="h-16 w-full rounded-lg" />
+            <Skeleton key={i} className="h-20 w-full rounded-xl bg-surface-1" />
           ))}
         </div>
       )}
 
       {/* Error */}
       {error && !isLoading && (
-        <Card className="p-8 text-center">
-          <AlertTriangle className="h-10 w-10 text-destructive mx-auto mb-3" />
-          <h3 className="font-semibold mb-1">Gagal Memuat Tiket</h3>
-          <p className="text-sm text-muted-foreground">Pastikan backend berjalan di port 8000</p>
-        </Card>
+        <div className="card-pricing flex flex-col items-center justify-center py-16 text-center">
+          <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
+            <AlertTriangle className="h-8 w-8 text-destructive" />
+          </div>
+          <h3 className="headline text-ink mb-1">Gagal Memuat Tiket</h3>
+          <p className="body text-ink-muted">Pastikan backend berjalan dan koneksi stabil</p>
+        </div>
       )}
 
       {/* Ticket Table */}
       {!isLoading && !error && (
-        <Card className="p-0 overflow-hidden">
+        <div className="card-pricing p-0 overflow-hidden">
           <TicketTable
             tickets={tickets}
             currentPage={meta?.current_page ?? 1}
@@ -154,7 +153,7 @@ export default function TicketsPage() {
             total={meta?.total ?? tickets.length}
             onPageChange={setPage}
           />
-        </Card>
+        </div>
       )}
     </div>
   );
