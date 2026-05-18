@@ -6,7 +6,7 @@ if (typeof window !== 'undefined') {
     (window as any).Pusher = Pusher;
 }
 
-const echo = typeof window !== 'undefined' 
+const echo = (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_REVERB_APP_KEY)
     ? new Echo({
         broadcaster: 'reverb',
         key: process.env.NEXT_PUBLIC_REVERB_APP_KEY,

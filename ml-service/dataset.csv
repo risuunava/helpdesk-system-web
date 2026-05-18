@@ -1,444 +1,202 @@
 title,description,priority
-"Server down production urgent","Server utama mati total semua user tidak bisa akses aplikasi","urgent"
-"System crash critical emergency","Aplikasi crash dan muncul blue screen di semua komputer kantor","urgent"
-"Database corruption data loss","Data hilang setelah restart server produksi tidak ada backup","urgent"
-"Network outage company wide","Jaringan mati satu kantor tidak bisa internet sama sekali","urgent"
-"Security breach hacker attack","Ada hacker yang masuk sistem dan mencuri data penting","urgent"
-"Production stopped completely","Sistem produksi berhenti total tidak bisa proses transaksi","urgent"
-"Critical system failure now","Server kritis gagal berfungsi perlu penanganan segera saat ini","urgent"
-"All users cannot access system","Semua user tidak bisa akses aplikasi utama sejak pagi","urgent"
-"Emergency server crash urgent","Server crash mendadak perlu recovery segera tidak bisa ditunda","urgent"
-"Data center down all services","Pusat data mati semua layanan berhenti total","urgent"
-"Komputer mati total tidak nyala","Sudah coba tekan power tetap tidak hidup sama sekali butuh segera","urgent"
-"Laptop nyala layar hitam blank","Laptop hidup tapi tidak ada tampilan apapun di layar","urgent"
-"Server lemot parah banget","Loading aplikasi sangat lama sekali dari tadi pagi tidak bisa kerja","urgent"
-"Wifi kantor mati total semua","Semua wifi lantai 2 mati tidak ada koneksi internet","urgent"
-"Akun email kena hack spam","Email saya kirim spam ke semua kontak tanpa izin butuh segera","urgent"
-"Website down tidak bisa diakses","Website perusahaan down semua pelanggan tidak bisa akses","urgent"
-"VPN mati semua remote user","Semua koneksi VPN mati karyawan remote tidak bisa kerja","urgent"
-"Listrik mati server down","Listrik mati semua server ikut mati tidak ada UPS","urgent"
-"Firewall block semua akses","Firewall memblokir semua koneksi masuk dan keluar","urgent"
-"Ransomware attack urgent","Ada serangan ransomware semua file terenkripsi butuh bantuan","urgent"
-"Bos minta laporan urgent","Bos minta laporan keuangan segera hari ini juga tidak bisa ditunda","urgent"
-"Bos marah sistem error","Bos marah karena sistem error saat meeting dengan client penting","urgent"
-"Permintaan langsung bos","Bos minta revisi presentasi sekarang juga untuk meeting CEO","urgent"
-"Bos komplain aplikasi lemot","Bos komplain aplikasi lemot di depan tamu sangat memalukan","urgent"
-"Bos urgent minta data","Bos minta data penjualan segera karena ada meeting dadakan","urgent"
-"Panggilan dari bos","Bos telepon minta segera perbaiki laptopnya yang error","urgent"
-"Bos tidak bisa akses dashboard","Bos tidak bisa akses dashboard penting untuk presentasi","urgent"
-"Bos kecewa sistem down","Bos sangat kecewa sistem down saat demo ke investor","urgent"
-"Meeting dengan bos terganggu","Meeting dengan bos terganggu karena proyektor tidak berfungsi","urgent"
-"Bos marah email tidak bisa","Bos marah karena tidak bisa kirim email ke client besar","urgent"
-"Bos minta segera diperbaiki","Bos minta segera diperbaiki karena mengganggu kerja tim","urgent"
-"Bos ngamuk server error","Bos ngamuk karena server error saat deadline project","urgent"
-"Langsung dari bos besar","Perintah langsung dari bos besar minta diperbaiki sekarang","urgent"
-"Bos komplain ke IT langsung","Bos langsung komplain ke IT masalah ini sangat urgent","urgent"
-"Bos tidak bisa presentasi","Bos tidak bisa presentasi karena laptop mati mendadak","urgent"
-"Bos marah printer rusak","Bos marah printer rusak padahal mau print dokumen penting","urgent"
-"Bos telepon marah marah","Bos telepon marah marah karena masalah IT tidak beres","urgent"
-"Bos minta prioritas utama","Bos minta masalah ini jadi prioritas utama segera diselesaikan","urgent"
-"Bos bilang ini urgent","Bos bilang ini urgent dan harus selesai dalam 1 jam","urgent"
-"Bos minta segera ditangani","Bos minta tiket ini segera ditangani tidak boleh ditunda","urgent"
-"Dirut minta diperbaiki sekarang","Direktur utama minta masalah IT segera diperbaiki","urgent"
-"Owner komplain sistem","Owner perusahaan komplain sistem tidak berjalan","urgent"
-"CEO tidak bisa akses","CEO tidak bisa akses laporan penting","urgent"
-"Meeting direksi terganggu IT","Meeting direksi terganggu karena masalah teknis","urgent"
-"Manager marah sistem down","Manager marah besar sistem down saat audit","urgent"
-"Virus ransomware menyebar","Ransomware menyebar ke semua komputer kantor","urgent"
-"Data center kebakaran","Ada kebakaran di data center butuh evakuasi","urgent"
-"Server room banjir","Server room kebanjiran air dari AC bocor","urgent"
-"Kabel fiber optik putus","Kabel fiber optik putus koneksi internet mati total","urgent"
-"UPS meledak server mati","UPS meledak semua server langsung mati","urgent"
-"AC server room mati total","AC server room mati suhu server naik drastis","urgent"
-"Power supply server terbakar","Power supply server terbakar bau sangit","urgent"
-"Harddisk server failure","Harddisk server rusak data tidak bisa diakses","urgent"
-"RAM server error total","RAM server error semua aplikasi crash","urgent"
-"CPU server overheat parah","CPU server overheat suhu 100 derajat","urgent"
-"Backup gagal total","Backup gagal total data tidak terselamatkan","urgent"
-"Replikasi database gagal","Replikasi database gagal data tidak sinkron","urgent"
-"SSL certificate expired","SSL expired website tidak bisa diakses","urgent"
-"Domain expired tidak bisa akses","Domain perusahaan expired semua layanan mati","urgent"
-"Email server down total","Email server down semua komunikasi terhenti","urgent"
-"Aplikasi payroll error","Aplikasi payroll error gaji tidak bisa diproses","urgent"
-"Sistem pajak error","Sistem pelaporan pajak error deadline besok","urgent"
-"Server customer facing down","Server pelanggan down reputasi buruk","urgent"
-"Payment gateway error","Payment gateway error transaksi gagal semua","urgent"
-"Third party API down","API pihak ketiga down integrasi mati","urgent"
-"Sistem absensi rusak","Sistem absensi rusak karyawan tidak bisa clock in","urgent"
-"Sistem keamanan gedung mati","Sistem security gedung mati tidak bisa akses","urgent"
-"CCTV server down","Server CCTV down tidak bisa monitoring","urgent"
-"Sistem alarm kebakaran error","Alarm kebakaran error false alert","urgent"
-"Sistem fingerprint mati","Sistem fingerprint mati karyawan tidak bisa masuk","urgent"
-"Access door system error","Sistem akses pintu error semua terkunci","urgent"
-"Server room access denied","Tidak bisa akses server room kartu error","urgent"
-"Semua layanan cloud down","Semua layanan cloud down data tidak bisa diakses","urgent"
-"AWS region outage","AWS region outage mempengaruhi semua server","urgent"
-"Google workspace down","Google workspace down email dan drive mati","urgent"
-"Microsoft 365 outage","Microsoft 365 outage semua aplikasi office mati","urgent"
-"Azure tenant locked","Azure tenant terkunci tidak bisa akses resource","urgent"
-"SaaS critical application down","Aplikasi SaaS critical mati operasional berhenti","urgent"
-"Internet backbone down","Internet backbone down ISP mati total","urgent"
-"ISP outage semua kantor","ISP mati semua kantor tidak bisa koneksi","urgent"
-"DDoS attack ongoing","Serangan DDoS ongoing server tidak responsif","urgent"
-"DNS server down total","DNS server down website tidak bisa diresolve","urgent"
-"Load balancer failure","Load balancer gagal traffic tidak terdistribusi","urgent"
-"CDN outage global","CDN outage global konten tidak terkirim","urgent"
-"Kebocoran data pelanggan masif","Data pelanggan bocor massal perlu tindakan segera","urgent"
-"Audit keamanan menemukan celah","Audit keamanan menemukan celah kritis","urgent"
-"Zero day exploit ditemukan","Zero day exploit ditemukan di sistem","urgent"
-"Admin account compromised","Akun admin terkompromi hacker masuk","urgent"
-"User data stolen","Data user dicuri hacker perlu investigasi","urgent"
-"Phishing attack menyebar","Phishing attack menyebar ke semua email","urgent"
-"Social engineering attack","Serangan social engineering berhasil menipu","urgent"
-"Insider threat detected","Ancaman internal terdeteksi mencuri data","urgent"
-"Backdoor found in system","Backdoor ditemukan di sistem produksi","urgent"
-"Cannot login to email system","Tidak bisa login email kantor sudah coba berkali-kali tetap gagal","normal"
-"Printer not working at all","Printer tidak mau ngeprint sudah dicek kabel dan driver tetap tidak bisa","normal"
-"Software error when opening app","Error saat buka aplikasi Excel muncul pesan error tidak bisa kerja","normal"
-"Slow internet connection today","Internet lambat sekali hari ini loading halaman sangat lama","normal"
-"Bug in application form input","Ada bug di form input data tidak bisa submit data","normal"
-"Error 404 on website page","Website muncul error 404 saat akses halaman tertentu","normal"
-"Tidak bisa login sistem HR","Username password benar tapi tidak bisa masuk ke sistem HR","normal"
-"Aplikasi HR crash terus keluar","Setiap buka aplikasi HR langsung keluar sendiri tidak bisa pakai","normal"
-"Scanner tidak terdeteksi komputer","Scanner tidak muncul di device manager sudah cabut colok","normal"
-"Speaker tidak bunyi suara","Sound tidak keluar padahal sudah colok dengan benar dan cek setting","normal"
-"Keyboard tombol tidak respon","Beberapa tombol keyboard tidak berfungsi untuk mengetik","normal"
-"Mouse kursor loncat tidak stabil","Kursor mouse tidak stabil sulit dikendalikan dengan baik","normal"
-"Monitor flickering berkedip","Layar monitor berkedip kedip tidak nyaman di mata","normal"
-"Aplikasi lemot loading lama","Aplikasi butuh waktu sangat lama untuk membuka dan merespon","normal"
-"Tidak bisa print dari Word","Setiap print dari Word selalu gagal muncul error printer","normal"
-"Email tidak bisa kirim lampiran","Tidak bisa kirim email dengan lampiran file besar","normal"
-"Zoom meeting tidak bisa join","Tidak bisa join meeting Zoom padahal sudah ada link","normal"
-"Microsoft Office tidak bisa save","Office tidak bisa menyimpan dokumen error permission","normal"
-"Wifi lemot hanya di laptop","Wifi lemot hanya di laptop saya saja yang lain normal","normal"
-"Headset tidak bunyi meeting","Headset tidak mengeluarkan suara saat meeting online","normal"
-"Gagal konek ke shared folder","Tidak bisa akses shared folder padahal sudah ada permission","normal"
-"Error saat compile kode","Aplikasi development error saat compile","normal"
-"Gagal deploy ke staging","Deploy ke server staging gagal error build","normal"
-"Git push ditolak","Tidak bisa push ke repo git error permission","normal"
-"NPM install error","Install dependency npm gagal error node","normal"
-"Composer update gagal","Update composer gagal dependency conflict","normal"
-"Docker container tidak start","Container docker tidak mau start","normal"
-"Kubernetes pod crash","Pod kubernetes crash terus menerus","normal"
-"CI/CD pipeline gagal","Pipeline CI/CD gagal build error","normal"
-"Environment variable missing","Variable environment hilang setelah restart","normal"
-"Port already in use","Port sudah digunakan aplikasi lain tidak bisa start","normal"
-"Memory usage tinggi","Memory usage server tinggi aplikasi lambat","normal"
-"Disk usage warning","Disk usage 90 persen perlu cleanup","normal"
-"CPU usage spike","CPU usage spike padahal tidak ada beban","normal"
-"Proyektor tidak tampil","Proyektor tidak menampilkan gambar saat meeting","normal"
-"TV conference room mati","TV di ruang meeting mati tidak bisa nyala","normal"
-"Mic tidak berfungsi","Microphone tidak menangkap suara saat meeting","normal"
-"Webcam blur","Webcam buram tidak jelas saat video call","normal"
-"HDMI converter rusak","Konverter HDMI ke VGA rusak","normal"
-"Kabel power hilang","Kabel power monitor hilang tidak ada cadangan","normal"
-"Kabel VGA putus","Kabel VGA monitor putus tidak bisa connect","normal"
-"Laptop lemot setelah update","Laptop jadi lambat setelah windows update","normal"
-"Blue screen sesekali","Laptop kadang blue screen sendiri","normal"
-"Baterai laptop boros","Baterai laptop cepat habis hanya 1 jam","normal"
-"Laptop overheating","Laptop cepat panas dan kipas berisik","normal"
-"Touchpad tidak berfungsi","Touchpad laptop tidak merespon sama sekali","normal"
-"USB port mati","Semua USB port laptop mati tidak detect","normal"
-"Bluetooth tidak connect","Bluetooth tidak bisa connect ke speaker","normal"
-"Ethernet port rusak","Port ethernet rusak tidak detect kabel","normal"
-"Charger laptop tidak charge","Charger laptop tidak mengisi baterai","normal"
-"SIM card tidak detect","SIM card tidak terdeteksi di laptop","normal"
-"Request new monitor 24 inch","Minta monitor baru ukuran 24 inch untuk kerja sehari hari","low"
-"Update software to latest version","Tolong update Adobe ke versi terbaru yang ada","low"
-"Info about training schedule","Tanya jadwal training Excel untuk karyawan baru","low"
-"Request new keyboard ergonomic","Keyboard rusak beberapa tombol minta ganti yang baru","low"
-"Ask about new features update","Tanya fitur baru apa yang ada di update terbaru sistem","low"
-"Permintaan akses folder shared","Minta akses ke folder shared untuk tim marketing","low"
-"Request instalasi Zoom meeting","Perlu Zoom untuk meeting online besok pagi jam 9","low"
-"Tanya cara backup data cloud","Cara backup data ke cloud bagaimana langkah langkahnya","low"
-"Request mouse pad baru besar","Mouse pad sudah aus permukaan tidak rata minta ganti baru","low"
-"Info jadwal maintenance server","Tanya jadwal maintenance server minggu ini hari apa","low"
-"Permintaan software desain grafis","Minta install Adobe Photoshop untuk tim desain","low"
-"Tanya kapasitas email maksimal","Berapa kapasitas maksimal email kantor per user","low"
-"Request penambahan RAM 8GB","Komputer lemot minta tambah RAM 8GB untuk performa","low"
-"Info upgrade sistem versi baru","Kapan sistem akan diupgrade ke versi terbaru","low"
-"Request kursi kantor ergonomis","Kursi kantor rusak minta ganti yang ergonomis","low"
-"Tanya cara install VPN","Bagaimana cara install VPN di laptop baru","low"
-"Request lampu meja tambahan","Meja kerja kurang terang minta lampu meja tambahan","low"
-"Info cuti tahunan sisa","Tanya sisa cuti tahunan berapa hari lagi","low"
-"Request ganti password wifi","Lupa password wifi kantor minta password baru","low"
-"Tanya jadwal meeting mingguan","Jadwal meeting minggu depan sudah ada atau belum","low"
-"Request adaptor charger laptop","Adaptor laptop rusak minta ganti yang baru","low"
-"Tanya benefit kesehatan","Apa saja benefit kesehatan untuk karyawan","low"
-"Request software anti virus","Minta install anti virus di komputer kantor","low"
-"Info cara klaim asuransi","Bagaimana cara klaim asuransi kesehatan","low"
-"Request kabel HDMI tambahan","Perlu kabel HDMI untuk presentasi ke monitor","low"
-"Tanya aturan dress code","Apa aturan dress code hari Jumat","low"
-"Request tambahan storage cloud","Perlu tambahan kapasitas storage cloud 10GB","low"
-"Info cara reset password","Bagaimana cara reset password jika lupa","low"
-"Request headset baru meeting","Headset rusak sebelah tidak bunyi minta ganti","low"
-"Tanya menu catering minggu ini","Apa menu catering minggu ini","low"
-"Request kunci loker baru","Kunci loker hilang minta dibuatkan baru","low"
-"Info jadwal olahraga kantor","Jadwal futsal kantor minggu ini kapan","low"
-"Request name tag meja","Name tag meja hilang minta dibuatkan baru","low"
-"Tanya parkir motor","Apakah parkir motor gratis untuk karyawan","low"
-"Request pena dan notes","Kehabisan alat tulis minta pena dan notes","low"
-"Info suhu AC ruangan","AC ruangan terlalu dingin minta disesuaikan","low"
-"Request extension kabel","Perlu extension kabel untuk tambahan colokan","low"
-"Tanya jadwal payroll","Gaji bulan ini cair tanggal berapa","low"
-"Request tas laptop","Tas laptop rusak minta ganti yang baru","low"
-"Info event team building","Kapan ada event team building lagi","low"
-"Request flashdisk 32GB","Perlu flashdisk untuk transfer data","low"
-"Tanya cara akses WiFi tamu","Bagaimana cara akses WiFi untuk tamu","low"
-"Request screen protector laptop","Minta screen protector untuk laptop kantor","low"
-"Info promo karyawan","Ada promo apa untuk karyawan bulan ini","low"
-"Tanya jam operasional kantor","Jam operasional kantor hari Sabtu","low"
-"Request laptop stand","Minta laptop stand agar ergonomis","low"
-"Info training cyber security","Kapan ada training cyber security","low"
-"Request USB hub tambahan","Perlu USB hub karena port kurang","low"
-"Tanya cara booking ruangan","Bagaimana cara booking ruang meeting","low"
-"Request keyboard wireless","Minta keyboard wireless lebih rapi","low"
-"Info asuransi jiwa","Apakah ada asuransi jiwa untuk karyawan","low"
-"Request gelas dan tumbler","Minta gelas dan tumbler untuk minum","low"
-"Tanya jadwal piket","Jadwal piket minggu ini siapa saja","low"
-"Request cooling pad laptop","Laptop panas minta cooling pad","low"
-"Info diskon karyawan","Ada diskon apa untuk karyawan","low"
-"Request kabel LAN","Perlu kabel LAN untuk koneksi stabil","low"
-"Tanya cara klaim lembur","Bagaimana cara klaim jam lembur","low"
-"Request mouse wireless","Mouse kabel tidak nyaman minta wireless","low"
-"Request webcam external","Perlu webcam external untuk meeting","low"
-"Info jatah minum","Apakah ada jatah air mineral","low"
-"Request kipas angin meja","Meja panas minta kipas angin kecil","low"
-"Tanya subsidi transport","Apakah ada subsidi transport bulan ini","low"
-"Request tempat sampah kecil","Minta tempat sampah kecil untuk meja","low"
-"Info daycare kantor","Apakah ada daycare untuk anak karyawan","low"
-"Request kaca meja","Minta kaca pelindung meja kerja","low"
-"Tanya reward karyawan","Ada reward untuk karyawan berprestasi","low"
-"Request printer personal","Minta printer kecil untuk personal","low"
-"Info gym kantor","Apakah gym kantor buka Sabtu","low"
-"Request speaker bluetooth","Minta speaker untuk meeting kecil","low"
-"Tanya kopi gratis","Apakah ada kopi gratis di pantry","low"
-"Request tanaman meja","Minta tanaman hias untuk meja kerja","low"
-"Info beasiswa anak karyawan","Apakah ada beasiswa untuk anak karyawan","low"
-"Request charger wireless","Minta wireless charger untuk HP","low"
-"Tanya jam istirahat","Jam istirahat resminya kapan saja","low"
-"Request bantal leher","Minta bantal leher untuk kursi","low"
-"Info THR tahun ini","THR tahun ini cair kapan","low"
-"Request magic jar pantry","Minta magic jar untuk nasi di pantry","low"
-title,description,priority
-"Server down production urgent","Server utama mati total semua user tidak bisa akses aplikasi","urgent"
-"System crash critical emergency","Aplikasi crash dan muncul blue screen di semua komputer kantor","urgent"
-"Database corruption data loss","Data hilang setelah restart server produksi tidak ada backup","urgent"
-"Network outage company wide","Jaringan mati satu kantor tidak bisa internet sama sekali","urgent"
-"Security breach hacker attack","Ada hacker yang masuk sistem dan mencuri data penting","urgent"
-"Production stopped completely","Sistem produksi berhenti total tidak bisa proses transaksi","urgent"
-"Critical system failure now","Server kritis gagal berfungsi perlu penanganan segera saat ini","urgent"
-"All users cannot access system","Semua user tidak bisa akses aplikasi utama sejak pagi","urgent"
-"Emergency server crash urgent","Server crash mendadak perlu recovery segera tidak bisa ditunda","urgent"
-"Data center down all services","Pusat data mati semua layanan berhenti total","urgent"
-"Komputer mati total tidak nyala","Sudah coba tekan power tetap tidak hidup sama sekali butuh segera","urgent"
-"Laptop nyala layar hitam blank","Laptop hidup tapi tidak ada tampilan apapun di layar","urgent"
-"Server lemot parah banget","Loading aplikasi sangat lama sekali dari tadi pagi tidak bisa kerja","urgent"
-"Wifi kantor mati total semua","Semua wifi lantai 2 mati tidak ada koneksi internet","urgent"
-"Akun email kena hack spam","Email saya kirim spam ke semua kontak tanpa izin butuh segera","urgent"
-"Website down tidak bisa diakses","Website perusahaan down semua pelanggan tidak bisa akses","urgent"
-"VPN mati semua remote user","Semua koneksi VPN mati karyawan remote tidak bisa kerja","urgent"
-"Listrik mati server down","Listrik mati semua server ikut mati tidak ada UPS","urgent"
-"Firewall block semua akses","Firewall memblokir semua koneksi masuk dan keluar","urgent"
-"Ransomware attack urgent","Ada serangan ransomware semua file terenkripsi butuh bantuan","urgent"
-"Bos minta laporan urgent","Bos minta laporan keuangan segera hari ini juga tidak bisa ditunda","urgent"
-"Bos marah sistem error","Bos marah karena sistem error saat meeting dengan client penting","urgent"
-"Permintaan langsung bos","Bos minta revisi presentasi sekarang juga untuk meeting CEO","urgent"
-"Bos komplain aplikasi lemot","Bos komplain aplikasi lemot di depan tamu sangat memalukan","urgent"
-"Bos urgent minta data","Bos minta data penjualan segera karena ada meeting dadakan","urgent"
-"Panggilan dari bos","Bos telepon minta segera perbaiki laptopnya yang error","urgent"
-"Bos tidak bisa akses dashboard","Bos tidak bisa akses dashboard penting untuk presentasi","urgent"
-"Bos kecewa sistem down","Bos sangat kecewa sistem down saat demo ke investor","urgent"
-"Meeting dengan bos terganggu","Meeting dengan bos terganggu karena proyektor tidak berfungsi","urgent"
-"Bos marah email tidak bisa","Bos marah karena tidak bisa kirim email ke client besar","urgent"
-"Bos minta segera diperbaiki","Bos minta segera diperbaiki karena mengganggu kerja tim","urgent"
-"Bos ngamuk server error","Bos ngamuk karena server error saat deadline project","urgent"
-"Langsung dari bos besar","Perintah langsung dari bos besar minta diperbaiki sekarang","urgent"
-"Bos komplain ke IT langsung","Bos langsung komplain ke IT masalah ini sangat urgent","urgent"
-"Bos tidak bisa presentasi","Bos tidak bisa presentasi karena laptop mati mendadak","urgent"
-"Bos marah printer rusak","Bos marah printer rusak padahal mau print dokumen penting","urgent"
-"Bos telepon marah marah","Bos telepon marah marah karena masalah IT tidak beres","urgent"
-"Bos minta prioritas utama","Bos minta masalah ini jadi prioritas utama segera diselesaikan","urgent"
-"Bos bilang ini urgent","Bos bilang ini urgent dan harus selesai dalam 1 jam","urgent"
-"Bos minta segera ditangani","Bos minta tiket ini segera ditangani tidak boleh ditunda","urgent"
-"Dirut minta diperbaiki sekarang","Direktur utama minta masalah IT segera diperbaiki","urgent"
-"Owner komplain sistem","Owner perusahaan komplain sistem tidak berjalan","urgent"
-"CEO tidak bisa akses","CEO tidak bisa akses laporan penting","urgent"
-"Meeting direksi terganggu IT","Meeting direksi terganggu karena masalah teknis","urgent"
-"Manager marah sistem down","Manager marah besar sistem down saat audit","urgent"
-"Virus ransomware menyebar","Ransomware menyebar ke semua komputer kantor","urgent"
-"Data center kebakaran","Ada kebakaran di data center butuh evakuasi","urgent"
-"Server room banjir","Server room kebanjiran air dari AC bocor","urgent"
-"Kabel fiber optik putus","Kabel fiber optik putus koneksi internet mati total","urgent"
-"UPS meledak server mati","UPS meledak semua server langsung mati","urgent"
-"AC server room mati total","AC server room mati suhu server naik drastis","urgent"
-"Power supply server terbakar","Power supply server terbakar bau sangit","urgent"
-"Harddisk server failure","Harddisk server rusak data tidak bisa diakses","urgent"
-"RAM server error total","RAM server error semua aplikasi crash","urgent"
-"CPU server overheat parah","CPU server overheat suhu 100 derajat","urgent"
-"Backup gagal total","Backup gagal total data tidak terselamatkan","urgent"
-"Replikasi database gagal","Replikasi database gagal data tidak sinkron","urgent"
-"SSL certificate expired","SSL expired website tidak bisa diakses","urgent"
-"Domain expired tidak bisa akses","Domain perusahaan expired semua layanan mati","urgent"
-"Email server down total","Email server down semua komunikasi terhenti","urgent"
-"Aplikasi payroll error","Aplikasi payroll error gaji tidak bisa diproses","urgent"
-"Sistem pajak error","Sistem pelaporan pajak error deadline besok","urgent"
-"Server customer facing down","Server pelanggan down reputasi buruk","urgent"
-"Payment gateway error","Payment gateway error transaksi gagal semua","urgent"
-"Third party API down","API pihak ketiga down integrasi mati","urgent"
-"Sistem absensi rusak","Sistem absensi rusak karyawan tidak bisa clock in","urgent"
-"Sistem keamanan gedung mati","Sistem security gedung mati tidak bisa akses","urgent"
-"CCTV server down","Server CCTV down tidak bisa monitoring","urgent"
-"Sistem alarm kebakaran error","Alarm kebakaran error false alert","urgent"
-"Sistem fingerprint mati","Sistem fingerprint mati karyawan tidak bisa masuk","urgent"
-"Access door system error","Sistem akses pintu error semua terkunci","urgent"
-"Server room access denied","Tidak bisa akses server room kartu error","urgent"
-"Semua layanan cloud down","Semua layanan cloud down data tidak bisa diakses","urgent"
-"AWS region outage","AWS region outage mempengaruhi semua server","urgent"
-"Google workspace down","Google workspace down email dan drive mati","urgent"
-"Microsoft 365 outage","Microsoft 365 outage semua aplikasi office mati","urgent"
-"Azure tenant locked","Azure tenant terkunci tidak bisa akses resource","urgent"
-"SaaS critical application down","Aplikasi SaaS critical mati operasional berhenti","urgent"
-"Internet backbone down","Internet backbone down ISP mati total","urgent"
-"ISP outage semua kantor","ISP mati semua kantor tidak bisa koneksi","urgent"
-"DDoS attack ongoing","Serangan DDoS ongoing server tidak responsif","urgent"
-"DNS server down total","DNS server down website tidak bisa diresolve","urgent"
-"Load balancer failure","Load balancer gagal traffic tidak terdistribusi","urgent"
-"CDN outage global","CDN outage global konten tidak terkirim","urgent"
-"Kebocoran data pelanggan masif","Data pelanggan bocor massal perlu tindakan segera","urgent"
-"Audit keamanan menemukan celah","Audit keamanan menemukan celah kritis","urgent"
-"Zero day exploit ditemukan","Zero day exploit ditemukan di sistem","urgent"
-"Admin account compromised","Akun admin terkompromi hacker masuk","urgent"
-"User data stolen","Data user dicuri hacker perlu investigasi","urgent"
-"Phishing attack menyebar","Phishing attack menyebar ke semua email","urgent"
-"Social engineering attack","Serangan social engineering berhasil menipu","urgent"
-"Insider threat detected","Ancaman internal terdeteksi mencuri data","urgent"
-"Backdoor found in system","Backdoor ditemukan di sistem produksi","urgent"
-"Cannot login to email system","Tidak bisa login email kantor sudah coba berkali-kali tetap gagal","normal"
-"Printer not working at all","Printer tidak mau ngeprint sudah dicek kabel dan driver tetap tidak bisa","normal"
-"Software error when opening app","Error saat buka aplikasi Excel muncul pesan error tidak bisa kerja","normal"
-"Slow internet connection today","Internet lambat sekali hari ini loading halaman sangat lama","normal"
-"Bug in application form input","Ada bug di form input data tidak bisa submit data","normal"
-"Error 404 on website page","Website muncul error 404 saat akses halaman tertentu","normal"
-"Tidak bisa login sistem HR","Username password benar tapi tidak bisa masuk ke sistem HR","normal"
-"Aplikasi HR crash terus keluar","Setiap buka aplikasi HR langsung keluar sendiri tidak bisa pakai","normal"
-"Scanner tidak terdeteksi komputer","Scanner tidak muncul di device manager sudah cabut colok","normal"
-"Speaker tidak bunyi suara","Sound tidak keluar padahal sudah colok dengan benar dan cek setting","normal"
-"Keyboard tombol tidak respon","Beberapa tombol keyboard tidak berfungsi untuk mengetik","normal"
-"Mouse kursor loncat tidak stabil","Kursor mouse tidak stabil sulit dikendalikan dengan baik","normal"
-"Monitor flickering berkedip","Layar monitor berkedip kedip tidak nyaman di mata","normal"
-"Aplikasi lemot loading lama","Aplikasi butuh waktu sangat lama untuk membuka dan merespon","normal"
-"Tidak bisa print dari Word","Setiap print dari Word selalu gagal muncul error printer","normal"
-"Email tidak bisa kirim lampiran","Tidak bisa kirim email dengan lampiran file besar","normal"
-"Zoom meeting tidak bisa join","Tidak bisa join meeting Zoom padahal sudah ada link","normal"
-"Microsoft Office tidak bisa save","Office tidak bisa menyimpan dokumen error permission","normal"
-"Wifi lemot hanya di laptop","Wifi lemot hanya di laptop saya saja yang lain normal","normal"
-"Headset tidak bunyi meeting","Headset tidak mengeluarkan suara saat meeting online","normal"
-"Gagal konek ke shared folder","Tidak bisa akses shared folder padahal sudah ada permission","normal"
-"Error saat compile kode","Aplikasi development error saat compile","normal"
-"Gagal deploy ke staging","Deploy ke server staging gagal error build","normal"
-"Git push ditolak","Tidak bisa push ke repo git error permission","normal"
-"NPM install error","Install dependency npm gagal error node","normal"
-"Composer update gagal","Update composer gagal dependency conflict","normal"
-"Docker container tidak start","Container docker tidak mau start","normal"
-"Kubernetes pod crash","Pod kubernetes crash terus menerus","normal"
-"CI/CD pipeline gagal","Pipeline CI/CD gagal build error","normal"
-"Environment variable missing","Variable environment hilang setelah restart","normal"
-"Port already in use","Port sudah digunakan aplikasi lain tidak bisa start","normal"
-"Memory usage tinggi","Memory usage server tinggi aplikasi lambat","normal"
-"Disk usage warning","Disk usage 90 persen perlu cleanup","normal"
-"CPU usage spike","CPU usage spike padahal tidak ada beban","normal"
-"Proyektor tidak tampil","Proyektor tidak menampilkan gambar saat meeting","normal"
-"TV conference room mati","TV di ruang meeting mati tidak bisa nyala","normal"
-"Mic tidak berfungsi","Microphone tidak menangkap suara saat meeting","normal"
-"Webcam blur","Webcam buram tidak jelas saat video call","normal"
-"HDMI converter rusak","Konverter HDMI ke VGA rusak","normal"
-"Kabel power hilang","Kabel power monitor hilang tidak ada cadangan","normal"
-"Kabel VGA putus","Kabel VGA monitor putus tidak bisa connect","normal"
-"Laptop lemot setelah update","Laptop jadi lambat setelah windows update","normal"
-"Blue screen sesekali","Laptop kadang blue screen sendiri","normal"
-"Baterai laptop boros","Baterai laptop cepat habis hanya 1 jam","normal"
-"Laptop overheating","Laptop cepat panas dan kipas berisik","normal"
-"Touchpad tidak berfungsi","Touchpad laptop tidak merespon sama sekali","normal"
-"USB port mati","Semua USB port laptop mati tidak detect","normal"
-"Bluetooth tidak connect","Bluetooth tidak bisa connect ke speaker","normal"
-"Ethernet port rusak","Port ethernet rusak tidak detect kabel","normal"
-"Charger laptop tidak charge","Charger laptop tidak mengisi baterai","normal"
-"SIM card tidak detect","SIM card tidak terdeteksi di laptop","normal"
-"Request new monitor 24 inch","Minta monitor baru ukuran 24 inch untuk kerja sehari hari","low"
-"Update software to latest version","Tolong update Adobe ke versi terbaru yang ada","low"
-"Info about training schedule","Tanya jadwal training Excel untuk karyawan baru","low"
-"Request new keyboard ergonomic","Keyboard rusak beberapa tombol minta ganti yang baru","low"
-"Ask about new features update","Tanya fitur baru apa yang ada di update terbaru sistem","low"
-"Permintaan akses folder shared","Minta akses ke folder shared untuk tim marketing","low"
-"Request instalasi Zoom meeting","Perlu Zoom untuk meeting online besok pagi jam 9","low"
-"Tanya cara backup data cloud","Cara backup data ke cloud bagaimana langkah langkahnya","low"
-"Request mouse pad baru besar","Mouse pad sudah aus permukaan tidak rata minta ganti baru","low"
-"Info jadwal maintenance server","Tanya jadwal maintenance server minggu ini hari apa","low"
-"Permintaan software desain grafis","Minta install Adobe Photoshop untuk tim desain","low"
-"Tanya kapasitas email maksimal","Berapa kapasitas maksimal email kantor per user","low"
-"Request penambahan RAM 8GB","Komputer lemot minta tambah RAM 8GB untuk performa","low"
-"Info upgrade sistem versi baru","Kapan sistem akan diupgrade ke versi terbaru","low"
-"Request kursi kantor ergonomis","Kursi kantor rusak minta ganti yang ergonomis","low"
-"Tanya cara install VPN","Bagaimana cara install VPN di laptop baru","low"
-"Request lampu meja tambahan","Meja kerja kurang terang minta lampu meja tambahan","low"
-"Info cuti tahunan sisa","Tanya sisa cuti tahunan berapa hari lagi","low"
-"Request ganti password wifi","Lupa password wifi kantor minta password baru","low"
-"Tanya jadwal meeting mingguan","Jadwal meeting minggu depan sudah ada atau belum","low"
-"Request adaptor charger laptop","Adaptor laptop rusak minta ganti yang baru","low"
-"Tanya benefit kesehatan","Apa saja benefit kesehatan untuk karyawan","low"
-"Request software anti virus","Minta install anti virus di komputer kantor","low"
-"Info cara klaim asuransi","Bagaimana cara klaim asuransi kesehatan","low"
-"Request kabel HDMI tambahan","Perlu kabel HDMI untuk presentasi ke monitor","low"
-"Tanya aturan dress code","Apa aturan dress code hari Jumat","low"
-"Request tambahan storage cloud","Perlu tambahan kapasitas storage cloud 10GB","low"
-"Info cara reset password","Bagaimana cara reset password jika lupa","low"
-"Request headset baru meeting","Headset rusak sebelah tidak bunyi minta ganti","low"
-"Tanya menu catering minggu ini","Apa menu catering minggu ini","low"
-"Request kunci loker baru","Kunci loker hilang minta dibuatkan baru","low"
-"Info jadwal olahraga kantor","Jadwal futsal kantor minggu ini kapan","low"
-"Request name tag meja","Name tag meja hilang minta dibuatkan baru","low"
-"Tanya parkir motor","Apakah parkir motor gratis untuk karyawan","low"
-"Request pena dan notes","Kehabisan alat tulis minta pena dan notes","low"
-"Info suhu AC ruangan","AC ruangan terlalu dingin minta disesuaikan","low"
-"Request extension kabel","Perlu extension kabel untuk tambahan colokan","low"
-"Tanya jadwal payroll","Gaji bulan ini cair tanggal berapa","low"
-"Request tas laptop","Tas laptop rusak minta ganti yang baru","low"
-"Info event team building","Kapan ada event team building lagi","low"
-"Request flashdisk 32GB","Perlu flashdisk untuk transfer data","low"
-"Tanya cara akses WiFi tamu","Bagaimana cara akses WiFi untuk tamu","low"
-"Request screen protector laptop","Minta screen protector untuk laptop kantor","low"
-"Info promo karyawan","Ada promo apa untuk karyawan bulan ini","low"
-"Tanya jam operasional kantor","Jam operasional kantor hari Sabtu","low"
-"Request laptop stand","Minta laptop stand agar ergonomis","low"
-"Info training cyber security","Kapan ada training cyber security","low"
-"Request USB hub tambahan","Perlu USB hub karena port kurang","low"
-"Tanya cara booking ruangan","Bagaimana cara booking ruang meeting","low"
-"Request keyboard wireless","Minta keyboard wireless lebih rapi","low"
-"Info asuransi jiwa","Apakah ada asuransi jiwa untuk karyawan","low"
-"Request gelas dan tumbler","Minta gelas dan tumbler untuk minum","low"
-"Tanya jadwal piket","Jadwal piket minggu ini siapa saja","low"
-"Request cooling pad laptop","Laptop panas minta cooling pad","low"
-"Info diskon karyawan","Ada diskon apa untuk karyawan","low"
-"Request kabel LAN","Perlu kabel LAN untuk koneksi stabil","low"
-"Tanya cara klaim lembur","Bagaimana cara klaim jam lembur","low"
-"Request mouse wireless","Mouse kabel tidak nyaman minta wireless","low"
-"Request webcam external","Perlu webcam external untuk meeting","low"
-"Info jatah minum","Apakah ada jatah air mineral","low"
-"Request kipas angin meja","Meja panas minta kipas angin kecil","low"
-"Tanya subsidi transport","Apakah ada subsidi transport bulan ini","low"
-"Request tempat sampah kecil","Minta tempat sampah kecil untuk meja","low"
-"Info daycare kantor","Apakah ada daycare untuk anak karyawan","low"
-"Request kaca meja","Minta kaca pelindung meja kerja","low"
-"Tanya reward karyawan","Ada reward untuk karyawan berprestasi","low"
-"Request printer personal","Minta printer kecil untuk personal","low"
-"Info gym kantor","Apakah gym kantor buka Sabtu","low"
-"Request speaker bluetooth","Minta speaker untuk meeting kecil","low"
-"Tanya kopi gratis","Apakah ada kopi gratis di pantry","low"
-"Request tanaman meja","Minta tanaman hias untuk meja kerja","low"
-"Info beasiswa anak karyawan","Apakah ada beasiswa untuk anak karyawan","low"
-"Request charger wireless","Minta wireless charger untuk HP","low"
-"Tanya jam istirahat","Jam istirahat resminya kapan saja","low"
-"Request bantal leher","Minta bantal leher untuk kursi","low"
-"Info THR tahun ini","THR tahun ini cair kapan","low"
-"Request magic jar pantry","Minta magic jar untuk nasi di pantry","low"
+Server down production urgent,Server utama mati total semua user tidak bisa akses aplikasi,urgent
+System crash critical emergency,Aplikasi crash dan muncul blue screen di semua komputer kantor,urgent
+Database corruption data loss,Data hilang setelah restart server produksi tidak ada backup,urgent
+Network outage company wide,Jaringan mati satu kantor tidak bisa internet sama sekali,urgent
+Security breach hacker attack,Ada hacker yang masuk sistem dan mencuri data penting,urgent
+Production stopped completely,Sistem produksi berhenti total tidak bisa proses transaksi,urgent
+Critical system failure now,Server kritis gagal berfungsi perlu penanganan segera saat ini,urgent
+All users cannot access system,Semua user tidak bisa akses aplikasi utama sejak pagi,urgent
+Emergency server crash urgent,Server crash mendadak perlu recovery segera tidak bisa ditunda,urgent
+Data center down all services,Pusat data mati semua layanan berhenti total,urgent
+Komputer mati total tidak nyala,Sudah coba tekan power tetap tidak hidup sama sekali butuh segera,urgent
+Laptop nyala layar hitam blank,Laptop hidup tapi tidak ada tampilan apapun di layar,urgent
+Server lemot parah banget,Loading aplikasi sangat lama sekali dari tadi pagi tidak bisa kerja,urgent
+Wifi kantor mati total semua,Semua wifi lantai 2 mati tidak ada koneksi internet,urgent
+Akun email kena hack spam,Email saya kirim spam ke semua kontak tanpa izin butuh segera,urgent
+Website down tidak bisa diakses,Website perusahaan down semua pelanggan tidak bisa akses,urgent
+VPN mati semua remote user,Semua koneksi VPN mati karyawan remote tidak bisa kerja,urgent
+Listrik mati server down,Listrik mati semua server ikut mati tidak ada UPS,urgent
+Firewall block semua akses,Firewall memblokir semua koneksi masuk dan keluar,urgent
+Ransomware attack urgent,Ada serangan ransomware semua file terenkripsi butuh bantuan,urgent
+Dirut minta diperbaiki sekarang,Direktur utama minta masalah IT segera diperbaiki,urgent
+Owner komplain sistem,Owner perusahaan komplain sistem tidak berjalan,urgent
+CEO tidak bisa akses,CEO tidak bisa akses laporan penting,urgent
+Meeting direksi terganggu IT,Meeting direksi terganggu karena masalah teknis,urgent
+Manager marah sistem down,Manager marah besar sistem down saat audit,urgent
+Virus ransomware menyebar,Ransomware menyebar ke semua komputer kantor,urgent
+Data center kebakaran,Ada kebakaran di data center butuh evakuasi,urgent
+Server room banjir,Server room kebanjiran air dari AC bocor,urgent
+Kabel fiber optik putus,Kabel fiber optik putus koneksi internet mati total,urgent
+UPS meledak server mati,UPS meledak semua server langsung mati,urgent
+AC server room mati total,AC server room mati suhu server naik drastis,urgent
+Power supply server terbakar,Power supply server terbakar bau sangit,urgent
+Harddisk server failure,Harddisk server rusak data tidak bisa diakses,urgent
+RAM server error total,RAM server error semua aplikasi crash,urgent
+CPU server overheat parah,CPU server overheat suhu 100 derajat,urgent
+Backup gagal total,Backup gagal total data tidak terselamatkan,urgent
+Replikasi database gagal,Replikasi database gagal data tidak sinkron,urgent
+SSL certificate expired,SSL expired website tidak bisa diakses,urgent
+Domain expired tidak bisa akses,Domain perusahaan expired semua layanan mati,urgent
+Email server down total,Email server down semua komunikasi terhenti,urgent
+Aplikasi payroll error,Aplikasi payroll error gaji tidak bisa diproses,urgent
+Sistem pajak error,Sistem pelaporan pajak error deadline besok,urgent
+Server customer facing down,Server pelanggan down reputasi buruk,urgent
+Payment gateway error,Payment gateway error transaksi gagal semua,urgent
+Third party API down,API pihak ketiga down integrasi mati,urgent
+Sistem absensi rusak,Sistem absensi rusak karyawan tidak bisa clock in,urgent
+Sistem keamanan gedung mati,Sistem security gedung mati tidak bisa akses,urgent
+CCTV server down,Server CCTV down tidak bisa monitoring,urgent
+Sistem alarm kebakaran error,Alarm kebakaran error false alert,urgent
+Sistem fingerprint mati,Sistem fingerprint mati karyawan tidak bisa masuk,urgent
+Access door system error,Sistem akses pintu error semua terkunci,urgent
+Server room access denied,Tidak bisa akses server room kartu error,urgent
+Semua layanan cloud down,Semua layanan cloud down data tidak bisa diakses,urgent
+AWS region outage,AWS region outage mempengaruhi semua server,urgent
+Google workspace down,Google workspace down email dan drive mati,urgent
+Microsoft 365 outage,Microsoft 365 outage semua aplikasi office mati,urgent
+Azure tenant locked,Azure tenant terkunci tidak bisa akses resource,urgent
+SaaS critical application down,Aplikasi SaaS critical mati operasional berhenti,urgent
+Internet backbone down,Internet backbone down ISP mati total,urgent
+ISP outage semua kantor,ISP mati semua kantor tidak bisa koneksi,urgent
+DDoS attack ongoing,Serangan DDoS ongoing server tidak responsif,urgent
+DNS server down total,DNS server down website tidak bisa diresolve,urgent
+Load balancer failure,Load balancer gagal traffic tidak terdistribusi,urgent
+CDN outage global,CDN outage global konten tidak terkirim,urgent
+Kebocoran data pelanggan masif,Data pelanggan bocor massal perlu tindakan segera,urgent
+Audit keamanan menemukan celah,Audit keamanan menemukan celah kritis,urgent
+Zero day exploit ditemukan,Zero day exploit ditemukan di sistem,urgent
+Admin account compromised,Akun admin terkompromi hacker masuk,urgent
+User data stolen,Data user dicuri hacker perlu investigasi,urgent
+Phishing attack menyebar,Phishing attack menyebar ke semua email,urgent
+Social engineering attack,Serangan social engineering berhasil menipu,urgent
+Insider threat detected,Ancaman internal terdeteksi mencuri data,urgent
+Backdoor found in system,Backdoor ditemukan di sistem produksi,urgent
+Cannot login to email system,Tidak bisa login email kantor sudah coba berkali-kali tetap gagal,normal
+Printer not working at all,Printer tidak mau ngeprint sudah dicek kabel dan driver tetap tidak bisa,normal
+Software error when opening app,Error saat buka aplikasi Excel muncul pesan error tidak bisa kerja,normal
+Slow internet connection today,Internet lambat sekali hari ini loading halaman sangat lama,normal
+Bug in application form input,Ada bug di form input data tidak bisa submit data,normal
+Error 404 on website page,Website muncul error 404 saat akses halaman tertentu,normal
+Tidak bisa login sistem HR,Username password benar tapi tidak bisa masuk ke sistem HR,normal
+Aplikasi HR crash terus keluar,Setiap buka aplikasi HR langsung keluar sendiri tidak bisa pakai,normal
+Scanner tidak terdeteksi komputer,Scanner tidak muncul di device manager sudah cabut colok,normal
+Speaker tidak bunyi suara,Sound tidak keluar padahal sudah colok dengan benar dan cek setting,normal
+Keyboard tombol tidak respon,Beberapa tombol keyboard tidak berfungsi untuk mengetik,normal
+Mouse kursor loncat tidak stabil,Kursor mouse tidak stabil sulit dikendalikan dengan baik,normal
+Monitor flickering berkedip,Layar monitor berkedip kedip tidak nyaman di mata,normal
+Aplikasi lemot loading lama,Aplikasi butuh waktu sangat lama untuk membuka dan merespon,normal
+Tidak bisa print dari Word,Setiap print dari Word selalu gagal muncul error printer,normal
+Email tidak bisa kirim lampiran,Tidak bisa kirim email dengan lampiran file besar,normal
+Zoom meeting tidak bisa join,Tidak bisa join meeting Zoom padahal sudah ada link,normal
+Microsoft Office tidak bisa save,Office tidak bisa menyimpan dokumen error permission,normal
+Wifi lemot hanya di laptop,Wifi lemot hanya di laptop saya saja yang lain normal,normal
+Headset tidak bunyi meeting,Headset tidak mengeluarkan suara saat meeting online,normal
+Gagal konek ke shared folder,Tidak bisa akses shared folder padahal sudah ada permission,normal
+Error saat compile kode,Aplikasi development error saat compile,normal
+Gagal deploy ke staging,Deploy ke server staging gagal error build,normal
+Git push ditolak,Tidak bisa push ke repo git error permission,normal
+NPM install error,Install dependency npm gagal error node,normal
+Composer update gagal,Update composer gagal dependency conflict,normal
+Docker container tidak start,Container docker tidak mau start,normal
+Kubernetes pod crash,Pod kubernetes crash terus menerus,normal
+CI/CD pipeline gagal,Pipeline CI/CD gagal build error,normal
+Environment variable missing,Variable environment hilang setelah restart,normal
+Port already in use,Port sudah digunakan aplikasi lain tidak bisa start,normal
+Memory usage tinggi,Memory usage server tinggi aplikasi lambat,normal
+Disk usage warning,Disk usage 90 persen perlu cleanup,normal
+CPU usage spike,CPU usage spike padahal tidak ada beban,normal
+Proyektor tidak tampil,Proyektor tidak menampilkan gambar saat meeting,normal
+TV conference room mati,TV di ruang meeting mati tidak bisa nyala,normal
+Mic tidak berfungsi,Microphone tidak menangkap suara saat meeting,normal
+Webcam blur,Webcam buram tidak jelas saat video call,normal
+HDMI converter rusak,Konverter HDMI ke VGA rusak,normal
+Kabel power hilang,Kabel power monitor hilang tidak ada cadangan,normal
+Kabel VGA putus,Kabel VGA monitor putus tidak bisa connect,normal
+Laptop lemot setelah update,Laptop jadi lambat setelah windows update,normal
+Blue screen sesekali,Laptop kadang blue screen sendiri,normal
+Baterai laptop boros,Baterai laptop cepat habis hanya 1 jam,normal
+Laptop overheating,Laptop cepat panas dan kipas berisik,normal
+Touchpad tidak berfungsi,Touchpad laptop tidak merespon sama sekali,normal
+USB port mati,Semua USB port laptop mati tidak detect,normal
+Bluetooth tidak connect,Bluetooth tidak bisa connect ke speaker,normal
+Ethernet port rusak,Port ethernet rusak tidak detect kabel,normal
+Charger laptop tidak charge,Charger laptop tidak mengisi baterai,normal
+SIM card tidak detect,SIM card tidak terdeteksi di laptop,normal
+Request new monitor 24 inch,Minta monitor baru ukuran 24 inch untuk kerja sehari hari,low
+Update software to latest version,Tolong update Adobe ke versi terbaru yang ada,low
+Info about training schedule,Tanya jadwal training Excel untuk karyawan baru,low
+Request new keyboard ergonomic,Keyboard rusak beberapa tombol minta ganti yang baru,low
+Ask about new features update,Tanya fitur baru apa yang ada di update terbaru sistem,low
+Permintaan akses folder shared,Minta akses ke folder shared untuk tim marketing,low
+Request instalasi Zoom meeting,Perlu Zoom untuk meeting online besok pagi jam 9,low
+Tanya cara backup data cloud,Cara backup data ke cloud bagaimana langkah langkahnya,low
+Request mouse pad baru besar,Mouse pad sudah aus permukaan tidak rata minta ganti baru,low
+Info jadwal maintenance server,Tanya jadwal maintenance server minggu ini hari apa,low
+Permintaan software desain grafis,Minta install Adobe Photoshop untuk tim desain,low
+Tanya kapasitas email maksimal,Berapa kapasitas maksimal email kantor per user,low
+Request penambahan RAM 8GB,Komputer lemot minta tambah RAM 8GB untuk performa,low
+Info upgrade sistem versi baru,Kapan sistem akan diupgrade ke versi terbaru,low
+Request kursi kantor ergonomis,Kursi kantor rusak minta ganti yang ergonomis,low
+Tanya cara install VPN,Bagaimana cara install VPN di laptop baru,low
+Request lampu meja tambahan,Meja kerja kurang terang minta lampu meja tambahan,low
+Info cuti tahunan sisa,Tanya sisa cuti tahunan berapa hari lagi,low
+Request ganti password wifi,Lupa password wifi kantor minta password baru,low
+Tanya jadwal meeting mingguan,Jadwal meeting minggu depan sudah ada atau belum,low
+Request adaptor charger laptop,Adaptor laptop rusak minta ganti yang baru,low
+Tanya benefit kesehatan,Apa saja benefit kesehatan untuk karyawan,low
+Request software anti virus,Minta install anti virus di komputer kantor,low
+Info cara klaim asuransi,Bagaimana cara klaim asuransi kesehatan,low
+Request kabel HDMI tambahan,Perlu kabel HDMI untuk presentasi ke monitor,low
+Tanya aturan dress code,Apa aturan dress code hari Jumat,low
+Request tambahan storage cloud,Perlu tambahan kapasitas storage cloud 10GB,low
+Info cara reset password,Bagaimana cara reset password jika lupa,low
+Request headset baru meeting,Headset rusak sebelah tidak bunyi minta ganti,low
+Tanya menu catering minggu ini,Apa menu catering minggu ini,low
+Request kunci loker baru,Kunci loker hilang minta dibuatkan baru,low
+Info jadwal olahraga kantor,Jadwal futsal kantor minggu ini kapan,low
+Request name tag meja,Name tag meja hilang minta dibuatkan baru,low
+Tanya parkir motor,Apakah parkir motor gratis untuk karyawan,low
+Request pena dan notes,Kehabisan alat tulis minta pena dan notes,low
+Info suhu AC ruangan,AC ruangan terlalu dingin minta disesuaikan,low
+Request extension kabel,Perlu extension kabel untuk tambahan colokan,low
+Tanya jadwal payroll,Gaji bulan ini cair tanggal berapa,low
+Request tas laptop,Tas laptop rusak minta ganti yang baru,low
+Info event team building,Kapan ada event team building lagi,low
+Request flashdisk 32GB,Perlu flashdisk untuk transfer data,low
+Tanya cara akses WiFi tamu,Bagaimana cara akses WiFi untuk tamu,low
+Request screen protector laptop,Minta screen protector untuk laptop kantor,low
+Info promo karyawan,Ada promo apa untuk karyawan bulan ini,low
+Tanya jam operasional kantor,Jam operasional kantor hari Sabtu,low
+Request laptop stand,Minta laptop stand agar ergonomis,low
+Info training cyber security,Kapan ada training cyber security,low
+Request USB hub tambahan,Perlu USB hub karena port kurang,low
+Tanya cara booking ruangan,Bagaimana cara booking ruang meeting,low
+Request keyboard wireless,Minta keyboard wireless lebih rapi,low
+Info asuransi jiwa,Apakah ada asuransi jiwa untuk karyawan,low
+Request gelas dan tumbler,Minta gelas dan tumbler untuk minum,low
+Tanya jadwal piket,Jadwal piket minggu ini siapa saja,low
+Request cooling pad laptop,Laptop panas minta cooling pad,low
+Info diskon karyawan,Ada diskon apa untuk karyawan,low
+Request kabel LAN,Perlu kabel LAN untuk koneksi stabil,low
+Tanya cara klaim lembur,Bagaimana cara klaim jam lembur,low
+Request mouse wireless,Mouse kabel tidak nyaman minta wireless,low
+Request webcam external,Perlu webcam external untuk meeting,low
+Info jatah minum,Apakah ada jatah air mineral,low
+Request kipas angin meja,Meja panas minta kipas angin kecil,low
+Tanya subsidi transport,Apakah ada subsidi transport bulan ini,low
+Request tempat sampah kecil,Minta tempat sampah kecil untuk meja,low
+Info daycare kantor,Apakah ada daycare untuk anak karyawan,low
+Request kaca meja,Minta kaca pelindung meja kerja,low
+Tanya reward karyawan,Ada reward untuk karyawan berprestasi,low
+Request printer personal,Minta printer kecil untuk personal,low
+Info gym kantor,Apakah gym kantor buka Sabtu,low
+Request speaker bluetooth,Minta speaker untuk meeting kecil,low
+Tanya kopi gratis,Apakah ada kopi gratis di pantry,low
+Request tanaman meja,Minta tanaman hias untuk meja kerja,low
+Info beasiswa anak karyawan,Apakah ada beasiswa untuk anak karyawan,low
+Request charger wireless,Minta wireless charger untuk HP,low
+Tanya jam istirahat,Jam istirahat resminya kapan saja,low
+Request bantal leher,Minta bantal leher untuk kursi,low
+Info THR tahun ini,THR tahun ini cair kapan,low
+Request magic jar pantry,Minta magic jar untuk nasi di pantry,low
