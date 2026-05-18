@@ -58,7 +58,7 @@ class PriorityService
     {
         try {
             $response = Http::timeout(3)  // Max 3 detik
-                ->post('http://localhost:5000/predict', [
+                ->post(env('ML_SERVICE_URL', 'http://localhost:5000') . '/predict', [
                     'title' => $title,
                     'description' => $description,
                 ]);
